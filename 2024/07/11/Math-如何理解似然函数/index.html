@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Math-如何理解似然函数 | Gu's Galaxy</title><meta name="author" content="Quasar Gu"><meta name="copyright" content="Quasar Gu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.统计推断的两大学派在统计领域，有两种对立的思想学派：贝叶斯学派和经典学派（也称频率学派），他们之间最重要的区别就是如何看待被估计的未知参数。贝叶斯学派的观点是将其看成是已知分布的随机变量，而经典学派的观点是将其看成未知的待估计的常量。 1.1.贝叶斯统计推断 具体来说，贝叶斯推断方法是将未知参数看做是一个随机变量，他具备某种先验分布。在已知观测数据  的基础上，可以利用贝叶斯公式来推导后验概率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Math-如何理解似然函数">
+<meta property="og:url" content="https://giyanwei.github.io.git/2024/07/11/Math-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Gu&#39;s Galaxy">
+<meta property="og:description" content="1.统计推断的两大学派在统计领域，有两种对立的思想学派：贝叶斯学派和经典学派（也称频率学派），他们之间最重要的区别就是如何看待被估计的未知参数。贝叶斯学派的观点是将其看成是已知分布的随机变量，而经典学派的观点是将其看成未知的待估计的常量。 1.1.贝叶斯统计推断 具体来说，贝叶斯推断方法是将未知参数看做是一个随机变量，他具备某种先验分布。在已知观测数据  的基础上，可以利用贝叶斯公式来推导后验概率">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg">
+<meta property="article:published_time" content="2024-07-11T08:04:14.000Z">
+<meta property="article:modified_time" content="2024-07-11T08:18:06.686Z">
+<meta property="article:author" content="Quasar Gu">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Probability theory">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg"><link rel="shortcut icon" href="/graphics/favicon.jpg"><link rel="canonical" href="https://giyanwei.github.io.git/2024/07/11/Math-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Math-如何理解似然函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-11 16:18:06'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/graphics/avatar.jpg" onerror="onerror=null;src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Gu's Galaxy"><span class="site-name">Gu's Galaxy</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Math-如何理解似然函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-07-11T08:04:14.000Z" title="Created 2024-07-11 16:04:14">2024-07-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-07-11T08:18:06.686Z" title="Updated 2024-07-11 16:18:06">2024-07-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Math-如何理解似然函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-统计推断的两大学派"><a href="#1-统计推断的两大学派" class="headerlink" title="1.统计推断的两大学派"></a>1.统计推断的两大学派</h2><p>在统计领域，有两种对立的思想学派：贝叶斯学派和经典学派（也称频率学派），他们之间最重要的区别就是如何看待被估计的未知参数。贝叶斯学派的观点是将其看成是已知分布的随机变量，而经典学派的观点是将其看成未知的待估计的常量。</p>
+<p><strong>1.1.贝叶斯统计推断</strong></p>
+<p>具体来说，贝叶斯推断方法是将未知参数看做是一个随机变量，他具备某种先验分布。在已知观测数据 <img src="https://www.zhihu.com/equation?tex=x&consumer=ZHI_MENG" alt="x"> 的基础上，可以利用贝叶斯公式来推导后验概率分布 <img src="https://www.zhihu.com/equation?tex=p_%7B%5CTheta%7CX%7D(%5Ctheta%7Cx)&consumer=ZHI_MENG" alt="p_{\Theta|X}(\theta|x)"> ，这样就同时包含人的先验知识以及观测值 <img src="https://www.zhihu.com/equation?tex=x&consumer=ZHI_MENG" alt="x"> 所能提供的关于 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的新信息。贝叶斯统计推断的内容，我们这里不展开。</p>
+<p><strong>1.2.经典统计推断</strong></p>
+<p>而经典统计方法是将未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 看作是一个常数，但是他是未知的，那么，这就需要去估计他了。经典统计的目标就是提出参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的估计方法，并且保证其具有一定的性质。</p>
+<p><strong>1.3.一个例子</strong></p>
+<p>我们举个简单的例子，比如我们要通过一个物理试验来测量某个粒子的质量，从经典学派的观点来看，虽然粒子的质量未知，但他本质上是一个确定的常数，不能将其看成是一个随机变量。而贝叶斯学派则截然不同，会将待估计的粒子质量看做是一个随机变量，并利用人们对该粒子的已有的认知给他一个先验分布，按照分布的概率模型，使其集中在某个指定的范围中。</p>
+<p>这一讲，我们重点介绍经典统计推断当中的极大似然估计法。为了给大家一个直观的感觉，这里我先来两个例子。</p>
+<h2 id="2-极大似然估计法的引例"><a href="#2-极大似然估计法的引例" class="headerlink" title="2.极大似然估计法的引例"></a>2.极大似然估计法的引例</h2><p>第一个例子还是盒子摸球的例子。</p>
+<p>有两个盒子，一号盒子里面有100个球，其中99个是白球，1个是黑球；二号盒子里面也有100个球，其中99个是黑球，1个是白球。</p>
+<p>现在我告诉你，我从其中某一个盒子中随机摸出来一个球，这个球是白球，那么你说，我更有可能是从哪个盒子里摸出的这个球？</p>
+<p>显然，你会说是一号盒子。道理很简单，因为一号盒子当中，摸出白球的概率是0.99，而二号盒子摸出白球的概率是0.01。显然更有可能是一号盒子了。</p>
+<p>第二个例子也是大家熟悉的丢硬币的例子。</p>
+<p>我有三个不均匀的硬币，其中第一个硬币抛出正面的概率是 <img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B2%7D%7B5%7D&consumer=ZHI_MENG" alt="\frac{2}{5}"> ，第二个硬币抛出正面的概率是 <img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B1%7D%7B2%7D&consumer=ZHI_MENG" alt="\frac{1}{2}"> ，第三个硬币抛出正面的概率是 <img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B3%7D%7B5%7D&consumer=ZHI_MENG" alt="\frac{3}{5}"> ，这时我取其中一个硬币，抛了20次，其中正面向上的次数是13次，请问我最有可能是拿的哪一个硬币？</p>
+<p>思考的过程也很简单：</p>
+<p>三枚硬币，抛掷20次，13次正面向上的概率分别是：</p>
+<p>第一枚： <img src="https://www.zhihu.com/equation?tex=C_%7B20%7D%5E%7B13%7D(%5Cfrac%7B2%7D%7B5%7D)%5E%7B13%7D(1-%5Cfrac%7B2%7D%7B5%7D)%5E%7B20-13%7D=0.014563052125736147&consumer=ZHI_MENG" alt="C_{20}^{13}(\frac{2}{5})^{13}(1-\frac{2}{5})^{20-13}=0.014563052125736147"></p>
+<p>第二枚： <img src="https://www.zhihu.com/equation?tex=C_%7B20%7D%5E%7B13%7D(%5Cfrac%7B1%7D%7B2%7D)%5E%7B13%7D(1-%5Cfrac%7B1%7D%7B2%7D)%5E%7B20-13%7D=0.0739288330078125&consumer=ZHI_MENG" alt="C_{20}^{13}(\frac{1}{2})^{13}(1-\frac{1}{2})^{20-13}=0.0739288330078125"></p>
+<p>第三枚： <img src="https://www.zhihu.com/equation?tex=C_%7B20%7D%5E%7B13%7D(%5Cfrac%7B3%7D%7B5%7D)%5E%7B13%7D(1-%5Cfrac%7B3%7D%7B5%7D)%5E%7B20-13%7D=0.1658822656197132&consumer=ZHI_MENG" alt="C_{20}^{13}(\frac{3}{5})^{13}(1-\frac{3}{5})^{20-13}=0.1658822656197132"></p>
+<p><strong>代码片段：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from scipy.special import comb</span><br><span class="line">import math</span><br><span class="line"></span><br><span class="line">def get_possibility(n, head, p_head):</span><br><span class="line">    return comb(n,head)*math.pow(p_head,head)*math.pow((1-p_head),(n-head))</span><br><span class="line"></span><br><span class="line">print(get_possibility(20, 13, 2/5))</span><br><span class="line">print(get_possibility(20, 13, 1/2))</span><br><span class="line">print(get_possibility(20, 13, 3/5))</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0.014563052125736147 </span><br><span class="line">0.0739288330078125</span><br><span class="line">0.1658822656197132</span><br></pre></td></tr></table></figure>
+
+<p>第三枚硬币抛掷出这种结果的概率最大，我更有可能拿的第三枚硬币？这种直观的认识是正确的，这种思维方式的背后正是我们要介绍的极大似然估计法，他就是这么的简单粗暴而有效。</p>
+<p><strong>关注 <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/833f8ba154b6de4387edc287c336d387">@石溪</a> 知乎账号，分享更多机器学习数学基础精彩内容。</strong></p>
+<h2 id="3-似然函数的由来"><a href="#3-似然函数的由来" class="headerlink" title="3.似然函数的由来"></a>3.似然函数的由来</h2><p>有了这个例子，下面我们开始介绍极大似然估计方法。我们重点要理解的是<strong>似然</strong>这个词，这个词听起来比较陌生。</p>
+<p>我们首先看离散型的情形，随机变量 <img src="https://www.zhihu.com/equation?tex=X&consumer=ZHI_MENG" alt="X"> 的概率分布已知，但是这个分布的参数是未知的，需要我们去估计，我们把他记作是 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> ，好比上面抛掷硬币的试验中，硬币正面朝上的概率是未知的，需要我们去估计，那么此时 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 就代表了这个待估计的正面向上的概率值。</p>
+<p>随机变量 <img src="https://www.zhihu.com/equation?tex=X&consumer=ZHI_MENG" alt="X"> 的取值 <img src="https://www.zhihu.com/equation?tex=x_i&consumer=ZHI_MENG" alt="x_i"> 表示抛掷 <img src="https://www.zhihu.com/equation?tex=k&consumer=ZHI_MENG" alt="k"> 次硬币，正面向上的次数，那么这个概率就表示为： <img src="https://www.zhihu.com/equation?tex=P(%5C%7BX=x_i%5C%7D)=C_%7Bk%7D%5E%7Bx_i%7D%5Ctheta%5E%7Bx_i%7D(1-%5Ctheta)%5E%7Bk-x_i%7D&consumer=ZHI_MENG" alt="P(\{X=x_i\})=C_{k}^{x_i}\theta^{x_i}(1-\theta)^{k-x_i}"> 。</p>
+<p>这里需要注意的是， <img src="https://www.zhihu.com/equation?tex=k&consumer=ZHI_MENG" alt="k"> 和 <img src="https://www.zhihu.com/equation?tex=x_i&consumer=ZHI_MENG" alt="x_i"> 都是指定的、已知的，而参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 是一个未知的参数。因此在这个大的背景下，抛掷 <img src="https://www.zhihu.com/equation?tex=k&consumer=ZHI_MENG" alt="k"> 次，其中有 <img src="https://www.zhihu.com/equation?tex=x_i&consumer=ZHI_MENG" alt="x_i"> 次向上的概率是一个关于未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的函数，我们把他写作是 <img src="https://www.zhihu.com/equation?tex=P(%5C%7BX=x_i%5C%7D)=p(x_i;%5Ctheta)&consumer=ZHI_MENG" alt="P(\{X=x_i\})=p(x_i;\theta)"> 。</p>
+<p>概况的说：概率质量函数PMF是一个关于待估参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的函数。</p>
+<p>那么此时，我们做 <img src="https://www.zhihu.com/equation?tex=n&consumer=ZHI_MENG" alt="n"> 次这种实验，每次实验中，都是连续抛掷 <img src="https://www.zhihu.com/equation?tex=k&consumer=ZHI_MENG" alt="k"> 次硬币，统计正面出现的次数，这样就能取得一系列的样本： <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> ，这些样本的取值之间满足相互独立，那么这一串样本取得上述取值 <img src="https://www.zhihu.com/equation?tex=%5C%7BX_1=x_1,X_2=x_2,X_3=x_3,...,X_n=x_n%5C%7D&consumer=ZHI_MENG" alt="\{X_1=x_1,X_2=x_2,X_3=x_3,...,X_n=x_n\}"> 的联合概率为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=p(x_1;%5Ctheta)%5Ccdot+p(x_2;%5Ctheta)%5Ccdot+p(x_3;%5Ctheta)%5Ccdot+...%5Ccdot+p(x_n;%5Ctheta)&consumer=ZHI_MENG" alt="p(x_1;\theta)\cdot p(x_2;\theta)\cdot p(x_3;\theta)\cdot ...\cdot p(x_n;\theta)"> ，用连乘符号写起来就是 <img src="https://www.zhihu.com/equation?tex=%5Cprod_%7Bi=1%7D%5E%7Bn%7Dp(x_i;%5Ctheta)&consumer=ZHI_MENG" alt="\prod_{i=1}^{n}p(x_i;\theta)"></p>
+<p>这是一个通用的表达式，实际上，你别看他表达式是长长的一串，实际上他的未知数就是一个 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> ，而其他的 <img src="https://www.zhihu.com/equation?tex=x_i&consumer=ZHI_MENG" alt="x_i"> 都是已知的样本值，因此我们说 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的取值，完全决定了这一连串样本取值的联合概率。</p>
+<p>由此，我们更换一个更加有针对性的写法：</p>
+<p><img src="https://www.zhihu.com/equation?tex=L(%5Ctheta)=L(x_1,x_2,x_3,...,x_n;%5Ctheta)=%5Cprod_%7Bi=1%7D%5E%7Bn%7Dp(x_i;%5Ctheta)&consumer=ZHI_MENG" alt="L(\theta)=L(x_1,x_2,x_3,...,x_n;\theta)=\prod_{i=1}^{n}p(x_i;\theta)"></p>
+<p>那么， <img src="https://www.zhihu.com/equation?tex=L(%5Ctheta)=L(x_1,x_2,x_3,...,x_n;%5Ctheta)&consumer=ZHI_MENG" alt="L(\theta)=L(x_1,x_2,x_3,...,x_n;\theta)"> 就是这一串已知样本值 <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> 的似然函数，他描述了取得这一串指定样本值的概率值，而这个概率值完全由未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 决定。这就是似然函数的由来。</p>
+<p>当然如果 <img src="https://www.zhihu.com/equation?tex=X&consumer=ZHI_MENG" alt="X"> 是一个连续型的随机变量，我们只要相应的把离散型的概率质量函数替换成连续型的概率密度函数即可：</p>
+<p><img src="https://www.zhihu.com/equation?tex=L(%5Ctheta)=L(x_1,x_2,x_3,...,x_n;%5Ctheta)=%5Cprod_%7Bi=1%7D%5E%7Bn%7Df(x_i;%5Ctheta)&consumer=ZHI_MENG" alt="L(\theta)=L(x_1,x_2,x_3,...,x_n;\theta)=\prod_{i=1}^{n}f(x_i;\theta)"></p>
+<h2 id="4-极大似然估计的思想"><a href="#4-极大似然估计的思想" class="headerlink" title="4.极大似然估计的思想"></a>4.极大似然估计的思想</h2><p>显然，似然函数 <img src="https://www.zhihu.com/equation?tex=L(x_1,x_2,x_3,...,x_n;%5Ctheta)&consumer=ZHI_MENG" alt="L(x_1,x_2,x_3,...,x_n;\theta)"> 指的就是随机变量 <img src="https://www.zhihu.com/equation?tex=X&consumer=ZHI_MENG" alt="X"> 取到指定的这一组样本值： <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> 时的概率的大小。当未知的待估计的参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 取不同的值时，计算出来的概率的值会发生变化。</p>
+<p>例如，当 <img src="https://www.zhihu.com/equation?tex=%5Ctheta=%5Ctheta_0&consumer=ZHI_MENG" alt="\theta=\theta_0"> 时，似然函数 <img src="https://www.zhihu.com/equation?tex=L(x_1,x_2,x_3,...,x_n;%5Ctheta_0)&consumer=ZHI_MENG" alt="L(x_1,x_2,x_3,...,x_n;\theta_0)"> 的取值为0或趋近于0，那么意味着，当 <img src="https://www.zhihu.com/equation?tex=%5Ctheta=%5Ctheta_0&consumer=ZHI_MENG" alt="\theta=\theta_0"> 时，随机变量 <img src="https://www.zhihu.com/equation?tex=X&consumer=ZHI_MENG" alt="X"> 取得这一组样本 <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> 的概率为0，即压根儿不可能得到这一组样本值，或可能性非常非常小，那么你肯定不会觉得参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 应该能够取 <img src="https://www.zhihu.com/equation?tex=%5Ctheta_0&consumer=ZHI_MENG" alt="\theta_0"> 这个数。</p>
+<p>那么当 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 取 <img src="https://www.zhihu.com/equation?tex=%5Ctheta_1&consumer=ZHI_MENG" alt="\theta_1"> 和 <img src="https://www.zhihu.com/equation?tex=%5Ctheta_2&consumer=ZHI_MENG" alt="\theta_2"> 两种不同的值时，似然函数的值 <img src="https://www.zhihu.com/equation?tex=L(x_1,x_2,x_3,...,x_n;%5Ctheta_1)+%5Cgt+L(x_1,x_2,x_3,...,x_n;%5Ctheta_2)&consumer=ZHI_MENG" alt="L(x_1,x_2,x_3,...,x_n;\theta_1) \gt L(x_1,x_2,x_3,...,x_n;\theta_2)"> ，意味着，当 <img src="https://www.zhihu.com/equation?tex=%5Ctheta=%5Ctheta_1&consumer=ZHI_MENG" alt="\theta=\theta_1"> 时，随机变量 <img src="https://www.zhihu.com/equation?tex=X&consumer=ZHI_MENG" alt="X"> 取得这一组指定样本的概率要更大一些，换句话说， <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 取 <img src="https://www.zhihu.com/equation?tex=%5Ctheta_1&consumer=ZHI_MENG" alt="\theta_1"> 比取 <img src="https://www.zhihu.com/equation?tex=%5Ctheta_2&consumer=ZHI_MENG" alt="\theta_2"> 有更大的可能获得这一组样本值 <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> ，那么当你面对这一组已经获得的采样值，在 <img src="https://www.zhihu.com/equation?tex=%5Ctheta_1&consumer=ZHI_MENG" alt="\theta_1"> 和 <img src="https://www.zhihu.com/equation?tex=%5Ctheta_2&consumer=ZHI_MENG" alt="\theta_2"> 当中二选一作为估计值的时候，倾向于选择使似然函数取值更大的估计值，就是再自然不过的了。</p>
+<p>这里就是盒子摸球试验中，我们选择一号盒子，丢硬币试验中，我们选择第三枚硬币的原因。</p>
+<p>那么更进一步，跳出前面几个引导例子的限制，当我们的未知参数选择的余地更大时，比如我们的未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 是对一个概率值的估计，那么他的取值范围就是一个在 <img src="https://www.zhihu.com/equation?tex=%5B0,1%5D&consumer=ZHI_MENG" alt="[0,1]"> 之间取值的连续变量，如果是估计总体的方差，那么他的范围就是非负数，如果估计的是总体的均值，那么他的范围就是全体实数了。</p>
+<p>此时我们要做的就是在未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的取值范围 <img src="https://www.zhihu.com/equation?tex=%5CTheta&consumer=ZHI_MENG" alt="\Theta"> 中选取使得似然函数 <img src="https://www.zhihu.com/equation?tex=L(x_1,x_2,x_3,...,x_n;%5Ctheta)&consumer=ZHI_MENG" alt="L(x_1,x_2,x_3,...,x_n;\theta)"> 能够取得最大值的 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D&consumer=ZHI_MENG" alt="\hat{\theta}"> ，作为未知参数的估计值，由于 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D&consumer=ZHI_MENG" alt="\hat{\theta}"> 使得似然函数取值达到最大，因此 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D&consumer=ZHI_MENG" alt="\hat{\theta}"> 就是未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的极大似然估计。</p>
+<p><strong>换句话说，未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 取估计值 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D&consumer=ZHI_MENG" alt="\hat{\theta}"> 时获取到这组已知样本 <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> 的可能性比取其他任何值时都要大，在这种思维框架下，我们有什么理由不用他呢？</strong></p>
+<h2 id="5-极大似然估计值的计算"><a href="#5-极大似然估计值的计算" class="headerlink" title="5.极大似然估计值的计算"></a>5.极大似然估计值的计算</h2><p>那么接下来，问题就到了如何求解这个极大似然估计值了。问题转换为一个求最值的问题：</p>
+<p>即：在给定概率模型和一组相互独立的观测样本 <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> 的基础上，求解使得似然函数 <img src="https://www.zhihu.com/equation?tex=+L(%5Ctheta)=L(x_1,x_2,x_3,...,x_n;%5Ctheta)=%5Cprod_%7Bi=1%7D%5E%7Bn%7Dp(x_i;%5Ctheta)&consumer=ZHI_MENG" alt=" L(\theta)=L(x_1,x_2,x_3,...,x_n;\theta)=\prod_{i=1}^{n}p(x_i;\theta)"> 取得最大值的未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的取值。当然，如果是连续型随机变量，则把似然函数替换成 <img src="https://www.zhihu.com/equation?tex=L(%5Ctheta)=L(x_1,x_2,x_3,...,x_n;%5Ctheta)=%5Cprod_%7Bi=1%7D%5E%7Bn%7Df(x_i;%5Ctheta)&consumer=ZHI_MENG" alt="L(\theta)=L(x_1,x_2,x_3,...,x_n;\theta)=\prod_{i=1}^{n}f(x_i;\theta)"> 即可。</p>
+<p>那么下面问题就变得很直接了，对似然函数求导，使得导数为0的 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的取值，就是我们要找的极大似然估计值 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D&consumer=ZHI_MENG" alt="\hat{\theta}"> 。</p>
+<p>这个连乘的函数求导数比较复杂，<strong>由于函数 <img src="https://www.zhihu.com/equation?tex=g(x)&consumer=ZHI_MENG" alt="g(x)"> 和 <img src="https://www.zhihu.com/equation?tex=ln(g(x))&consumer=ZHI_MENG" alt="ln(g(x))"> 的单调性是保持一致的。因此我们可以选择把似然函数 <img src="https://www.zhihu.com/equation?tex=L(x)&consumer=ZHI_MENG" alt="L(x)"> 转化为 <img src="https://www.zhihu.com/equation?tex=ln(L(x))&consumer=ZHI_MENG" alt="ln(L(x))"></strong> ，这样连乘就变成了连加：</p>
+<p><img src="https://www.zhihu.com/equation?tex=ln(L(%5Ctheta))=ln(%5Cprod_%7Bi=1%7D%5E%7Bn%7Dp(x_i;%5Ctheta))=ln(p(x_1;%5Ctheta))%5Ccdot+ln(p(x_2;%5Ctheta))%5Ccdot++...+%5Ccdot+ln(p(x_n;%5Ctheta))=%5Csum_%7Bi=1%7D%5E%7Bn%7Dln(p(x_i;%5Ctheta))+&consumer=ZHI_MENG" alt="ln(L(\theta))=ln(\prod_{i=1}^{n}p(x_i;\theta))=ln(p(x_1;\theta))\cdot ln(p(x_2;\theta))\cdot  ... \cdot ln(p(x_n;\theta))=\sum_{i=1}^{n}ln(p(x_i;\theta)) "></p>
+<p>此时再对他进行求导就变得容易了，如果方程有唯一解，且是极大值点，那么我们就求得了极大似然估计值。</p>
+<p>如果有<strong>多个未知参数</strong>需要我们去估计呢？那也好办，用上<strong>偏导数</strong>就可以了：</p>
+<p><img src="https://www.zhihu.com/equation?tex=ln(L(%5Ctheta_1,%5Ctheta_2,...,%5Ctheta_k))=ln(%5Cprod_%7Bi=1%7D%5E%7Bn%7Dp(x_i;%5Ctheta_1,%5Ctheta_2,...,%5Ctheta_k))=%5Csum_%7Bi=1%7D%5E%7Bn%7Dln(p(x_i;%5Ctheta_1,%5Ctheta_2,...,%5Ctheta_k))&consumer=ZHI_MENG" alt="ln(L(\theta_1,\theta_2,...,\theta_k))=ln(\prod_{i=1}^{n}p(x_i;\theta_1,\theta_2,...,\theta_k))=\sum_{i=1}^{n}ln(p(x_i;\theta_1,\theta_2,...,\theta_k))"></p>
+<p>为了使得 <img src="https://www.zhihu.com/equation?tex=lnL&consumer=ZHI_MENG" alt="lnL"> 达到最大，我们对每一个待估计的未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta_i&consumer=ZHI_MENG" alt="\theta_i"> ，都去求偏导数，并建立方程组：</p>
+<p><img src="https://www.zhihu.com/equation?tex=+%5Cleft%5C%7B+%5Cbegin%7Baligned%7D+%5Cfrac%7B%5Cpartial+lnL%7D%7B%5Cpartial+%5Ctheta_1%7D=0+%5C%5C+%5Cfrac%7B%5Cpartial+lnL%7D%7B%5Cpartial+%5Ctheta_2%7D=0+%5C%5C+......%5C%5C+%5Cfrac%7B%5Cpartial+lnL%7D%7B%5Cpartial+%5Ctheta_k%7D=0+%5C%5C+%5Cend%7Baligned%7D+%5Cright.+&consumer=ZHI_MENG" alt=" \left\{ \begin{aligned} \frac{\partial lnL}{\partial \theta_1}=0 \\ \frac{\partial lnL}{\partial \theta_2}=0 \\ ......\\ \frac{\partial lnL}{\partial \theta_k}=0 \\ \end{aligned} \right. "></p>
+<p>解得这个方程组就可以了。</p>
+<h2 id="6-极大似然估计的例子"><a href="#6-极大似然估计的例子" class="headerlink" title="6.极大似然估计的例子"></a>6.极大似然估计的例子</h2><p>说了这么多的理论方法，最后我们还是来看看实际例子中的估计方法：</p>
+<p><strong>6.1. 简单案例热身</strong></p>
+<p>第一个例子还是抛硬币的例子，我们的硬币正反面不规则，我们想要估计他正面向上的概率 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> ，我们连续抛掷10次，每一次抛掷的结果形成的样本序列如下：</p>
+<p>正，正，正，反，反，正，反，正，正，反</p>
+<p>很显然，每次抛掷的过程是都是彼此独立的，并且 <img src="https://www.zhihu.com/equation?tex=X&consumer=ZHI_MENG" alt="X"> 是一个伯努利随机变量。我们知道： <img src="https://www.zhihu.com/equation?tex=p(%5C%7Bx_i=%E6%AD%A3%5C%7D)=%5Ctheta&consumer=ZHI_MENG" alt="p(\{x_i=正\})=\theta"> ， <img src="https://www.zhihu.com/equation?tex=p(%5C%7Bx_i=%E5%8F%8D%5C%7D)=1-%5Ctheta&consumer=ZHI_MENG" alt="p(\{x_i=反\})=1-\theta"> ，那么这组观测数据的似然函数为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=L(x_1,x_2,...,x_%7B10%7D;%5Ctheta)=%5Ctheta%5E3(1-%5Ctheta)%5E2%5Ctheta(1-%5Ctheta)%5Ctheta%5E2(1-%5Ctheta)=%5Ctheta%5E6(1-%5Ctheta)%5E4&consumer=ZHI_MENG" alt="L(x_1,x_2,...,x_{10};\theta)=\theta^3(1-\theta)^2\theta(1-\theta)\theta^2(1-\theta)=\theta^6(1-\theta)^4"></p>
+<p>将其转换为对数似然函数：</p>
+<p><img src="https://www.zhihu.com/equation?tex=ln(L(x_1,x_2,...,x_%7B10%7D;%5Ctheta))=ln(%5Ctheta%5E6(1-%5Ctheta)%5E4)=6ln%5Ctheta+4ln(1-%5Ctheta)&consumer=ZHI_MENG" alt="ln(L(x_1,x_2,...,x_{10};\theta))=ln(\theta^6(1-\theta)^4)=6ln\theta+4ln(1-\theta)"></p>
+<p>然后对对数似然函数求导：</p>
+<p><img src="https://www.zhihu.com/equation?tex=ln%27(L(x_1,x_2,...,x_%7B10%7D;%5Ctheta))=(6ln%5Ctheta+4ln(1-%5Ctheta))%27+=%5Cfrac%7B6%7D%7B%5Ctheta%7D+%5Cfrac%7B4%7D%7B%5Ctheta-1%7D=%5Cfrac%7B10%5Ctheta-6%7D%7B%5Ctheta(%5Ctheta-1)%7D&consumer=ZHI_MENG" alt="ln&#39;(L(x_1,x_2,...,x_{10};\theta))=(6ln\theta+4ln(1-\theta))&#39; =\frac{6}{\theta}+\frac{4}{\theta-1}=\frac{10\theta-6}{\theta(\theta-1)}"></p>
+<p>让对数似然函数的导数为0：</p>
+<p><img src="https://www.zhihu.com/equation?tex=ln%27(L(x_1,x_2,...,x_%7B10%7D;%5Ctheta))=%5Cfrac%7B10%5Ctheta-6%7D%7B%5Ctheta(%5Ctheta-1)%7D=0&consumer=ZHI_MENG" alt="ln&#39;(L(x_1,x_2,...,x_{10};\theta))=\frac{10\theta-6}{\theta(\theta-1)}=0"></p>
+<p>得到极大似然估计值 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D=%5Cfrac%7B6%7D%7B10%7D&consumer=ZHI_MENG" alt="\hat{\theta}=\frac{6}{10}"></p>
+<p><strong>6.2.单参数极大似然估计</strong></p>
+<p>再看一个指数分布的例子：</p>
+<p>我们在前面学习过，在一个柜台前，相邻顾客的到达时间的时间间隔服从参数为 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的指数分布，我们获取了一组上述时间间隔的样本 <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> ，下面来运用极大似然估计的方法来估计未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 。</p>
+<p>首先依据指数分布，得到： <img src="https://www.zhihu.com/equation?tex=f(x_i;%5Ctheta)=%5Ctheta+e%5E%7B-%5Ctheta+x_i%7D&consumer=ZHI_MENG" alt="f(x_i;\theta)=\theta e^{-\theta x_i}"></p>
+<p>紧接着，得到对数似然函数：</p>
+<p><img src="https://www.zhihu.com/equation?tex=ln(L(x_1,x_2,...,x_n;%5Ctheta))=ln(%5Cprod_%7Bi-1%7D%5E%7Bn%7D%5Ctheta+e%5E%7B-%5Ctheta+x_i%7D)=%5Csum_%7Bi=1%7D%5Enln%5Ctheta+e%5E%7B-%5Ctheta+x_i%7D=%5Csum_%7Bi=1%7D%5Enln%5Ctheta++%5Csum_%7Bi=1%7D%5Enln+e%5E%7B-%5Ctheta+x_i%7D&consumer=ZHI_MENG" alt="ln(L(x_1,x_2,...,x_n;\theta))=ln(\prod_{i-1}^{n}\theta e^{-\theta x_i})=\sum_{i=1}^nln\theta e^{-\theta x_i}=\sum_{i=1}^nln\theta +\sum_{i=1}^nln e^{-\theta x_i}"></p>
+<p><img src="https://www.zhihu.com/equation?tex==%5Csum_%7Bi=1%7D%5Enln%5Ctheta+-%5Csum_%7Bi=1%7D%5E%7Bn%7D%5Ctheta+x_i=%5Csum_%7Bi=1%7D%5Enln%5Ctheta+-%5Ctheta%5Csum_%7Bi=1%7D%5E%7Bn%7Dx_i=nln%5Ctheta+-%5Ctheta%5Csum_%7Bi=1%7D%5E%7Bn%7Dx_i&consumer=ZHI_MENG" alt="=\sum_{i=1}^nln\theta -\sum_{i=1}^{n}\theta x_i=\sum_{i=1}^nln\theta -\theta\sum_{i=1}^{n}x_i=nln\theta -\theta\sum_{i=1}^{n}x_i"></p>
+<p>此时，我们对这个对数似然函数求导，来获取未知参数的极大似然估计值 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D&consumer=ZHI_MENG" alt="\hat{\theta}"> ，也很简单：</p>
+<p><img src="https://www.zhihu.com/equation?tex=ln%27(L(x_1,x_2,...,x_n;%5Ctheta))=(nln%5Ctheta+-%5Ctheta%5Csum_%7Bi=1%7D%5E%7Bn%7Dx_i)%27=%5Cfrac%7Bn%7D%7B%5Ctheta%7D-%5Csum_%7Bi=1%7D%5E%7Bn%7Dx_i=0&consumer=ZHI_MENG" alt="ln&#39;(L(x_1,x_2,...,x_n;\theta))=(nln\theta -\theta\sum_{i=1}^{n}x_i)&#39;=\frac{n}{\theta}-\sum_{i=1}^{n}x_i=0"></p>
+<p>则有： <img src="https://www.zhihu.com/equation?tex=%5Cfrac%7Bn%7D%7B%5Ctheta%7D=%5Csum_%7Bi=1%7D%5E%7Bn%7Dx_i&consumer=ZHI_MENG" alt="\frac{n}{\theta}=\sum_{i=1}^{n}x_i"></p>
+<p>那么未知参数 <img src="https://www.zhihu.com/equation?tex=%5Ctheta&consumer=ZHI_MENG" alt="\theta"> 的极大似然估计值 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D=%5Cfrac%7Bn%7D%7B%5Csum_%7Bi=1%7D%5E%7Bn%7Dx_i%7D&consumer=ZHI_MENG" alt="\hat{\theta}=\frac{n}{\sum_{i=1}^{n}x_i}"> 。</p>
+<p><strong>6.3.多参数极大似然估计</strong></p>
+<p>上面是单参数的极大似然估计的例子，那么下面我们再来看看多参数的例子，这里我们从一个服从参数为 <img src="https://www.zhihu.com/equation?tex=(%5Cmu,%5Csigma%5E2)&consumer=ZHI_MENG" alt="(\mu,\sigma^2)"> 的正态分布当中获取一组采样值： <img src="https://www.zhihu.com/equation?tex=x_1,x_2,x_3,...,x_n&consumer=ZHI_MENG" alt="x_1,x_2,x_3,...,x_n"> ，通过这组采样值，我们来求得两个参数的极大似然估计值：</p>
+<p>首先写出似然函数：</p>
+<p><img src="https://www.zhihu.com/equation?tex=L(x_1,x_2,x_3,...,x_n;%5Cmu,+%5Csigma%5E2)=%5Cprod_%7Bi=1%7D%5En%5Cfrac%7B1%7D%7B%5Csqrt%7B2%5Cpi%7D%5Csigma%7De%5E%7B-%5Cfrac%7B(x_i-%5Cmu)%5E2%7D%7B2%5Csigma%5E2%7D%7D=(2%5Cpi%5Csigma%5E2)%5E%7B-%5Cfrac%7Bn%7D%7B2%7D%7De%5E%7B-%5Cfrac%7B1%7D%7B2%5Csigma%5E2%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)%5E2%7D&consumer=ZHI_MENG" alt="L(x_1,x_2,x_3,...,x_n;\mu, \sigma^2)=\prod_{i=1}^n\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x_i-\mu)^2}{2\sigma^2}}=(2\pi\sigma^2)^{-\frac{n}{2}}e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2}"></p>
+<p>写成对数似然函数的形式：</p>
+<p><img src="https://www.zhihu.com/equation?tex=ln(L(x_1,x_2,x_3,...,x_n;%5Cmu,+%5Csigma%5E2))=ln((2%5Cpi%5Csigma%5E2)%5E%7B-%5Cfrac%7Bn%7D%7B2%7D%7De%5E%7B-%5Cfrac%7B1%7D%7B2%5Csigma%5E2%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)%5E2%7D)&consumer=ZHI_MENG" alt="ln(L(x_1,x_2,x_3,...,x_n;\mu, \sigma^2))=ln((2\pi\sigma^2)^{-\frac{n}{2}}e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2})"></p>
+<p><img src="https://www.zhihu.com/equation?tex==ln(2%5Cpi%5Csigma%5E2)%5E%7B-%5Cfrac%7Bn%7D%7B2%7D%7D+ln(e%5E%7B-%5Cfrac%7B1%7D%7B2%5Csigma%5E2%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)%5E2%7D)=-%5Cfrac%7Bn%7D%7B2%7Dln2%5Cpi-%5Cfrac%7Bn%7D%7B2%7Dln(%5Csigma%5E2)-%5Cfrac%7B1%7D%7B2%5Csigma%5E2%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)%5E2&consumer=ZHI_MENG" alt="=ln(2\pi\sigma^2)^{-\frac{n}{2}}+ln(e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2})=-\frac{n}{2}ln2\pi-\frac{n}{2}ln(\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2"></p>
+<p>由于这里有两个待估计的参数，我们分别对其进行求偏导， <img src="https://www.zhihu.com/equation?tex=%5Csigma%5E2&consumer=ZHI_MENG" alt="\sigma^2"> 我们把他看作是一个整体即可：</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cleft%5C%7B+%5Cbegin%7Baligned%7D+%5Cfrac%7B%5Cpartial(+-%5Cfrac%7Bn%7D%7B2%7Dln2%5Cpi-%5Cfrac%7Bn%7D%7B2%7Dln(%5Csigma%5E2)-%5Cfrac%7B1%7D%7B2%5Csigma%5E2%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)%5E2)%7D%7B%5Cpartial+%5Cmu%7D=0+%5C%5C+%5Cfrac%7B%5Cpartial(+-%5Cfrac%7Bn%7D%7B2%7Dln2%5Cpi-%5Cfrac%7Bn%7D%7B2%7Dln(%5Csigma%5E2)-%5Cfrac%7B1%7D%7B2%5Csigma%5E2%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)%5E2)%7D%7B%5Cpartial+%5Csigma%5E2%7D=0++%5C%5C+%5Cend%7Baligned%7D+%5Cright.+&consumer=ZHI_MENG" alt="\left\{ \begin{aligned} \frac{\partial( -\frac{n}{2}ln2\pi-\frac{n}{2}ln(\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2)}{\partial \mu}=0 \\ \frac{\partial( -\frac{n}{2}ln2\pi-\frac{n}{2}ln(\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2)}{\partial \sigma^2}=0  \\ \end{aligned} \right. "></p>
+<p>第一个求偏导数的式子中，我们可以得出：<img src="https://www.zhihu.com/equation?tex=2%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)=0&consumer=ZHI_MENG" alt="2\sum_{i=1}^n(x_i-\mu)=0"></p>
+<p>则有： <img src="https://www.zhihu.com/equation?tex=%5Csum_%7Bi=1%7D%5En+%5Cmu+=+%5Csum_%7Bi=1%7D%5En+x_i&consumer=ZHI_MENG" alt="\sum_{i=1}^n \mu = \sum_{i=1}^n x_i"></p>
+<p>即 <img src="https://www.zhihu.com/equation?tex=n+%5Cmu=%5Csum_%7Bi=1%7D%5E%7Bn%7D+x_i+%5CRightarrow+%5Chat%7B%5Cmu%7D=%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5Enx_i&consumer=ZHI_MENG" alt="n \mu=\sum_{i=1}^{n} x_i \Rightarrow \hat{\mu}=\frac{1}{n}\sum_{i=1}^nx_i"> ，即得到了均值的极大似然估计值。</p>
+<p>第二个求偏导的式子中，注意我们是把 <img src="https://www.zhihu.com/equation?tex=%5Csigma%5E2&consumer=ZHI_MENG" alt="\sigma^2"> 看作是一个整体，因此可以得出：</p>
+<p><img src="https://www.zhihu.com/equation?tex=-%5Cfrac%7Bn%7D%7B2%5Csigma%5E2%7D+%5Cfrac%7B1%7D%7B2%5Csigma%5E4%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)%5E2=0&consumer=ZHI_MENG" alt="-\frac{n}{2\sigma^2}+\frac{1}{2\sigma^4}\sum_{i=1}^n(x_i-\mu)^2=0"></p>
+<p>得到： <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Csigma%5E2%7D=%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Cmu)%5E2&consumer=ZHI_MENG" alt="\hat{\sigma^2}=\frac{1}{n}\sum_{i=1}^n(x_i-\mu)^2"> ，而这里我们要带入 <img src="https://www.zhihu.com/equation?tex=%5Cmu&consumer=ZHI_MENG" alt="\mu"> 的极大似然估计值 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Cmu%7D&consumer=ZHI_MENG" alt="\hat{\mu}"> ，最终得到了方差的极大似然估计值：<img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Csigma%5E2%7D=%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5En(x_i-%5Chat%7B%5Cmu%7D)%5E2&consumer=ZHI_MENG" alt="\hat{\sigma^2}=\frac{1}{n}\sum_{i=1}^n(x_i-\hat{\mu})^2"></p>
+<p>细心的朋友们一定发现了，总体方差的极大似然估计值的分母是 <img src="https://www.zhihu.com/equation?tex=n&consumer=ZHI_MENG" alt="n"> 而不是 <img src="https://www.zhihu.com/equation?tex=n-1&consumer=ZHI_MENG" alt="n-1"> ，因此他不是一个无偏估计量。但是可以说他是渐近无偏的，因为随着 <img src="https://www.zhihu.com/equation?tex=n&consumer=ZHI_MENG" alt="n"> 不断增大，他和无偏估计量逐渐趋向一致。</p>
+<p>经典统计推断当中的极大似然估计方法，我们就介绍到这里。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git">Quasar Gu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git/2024/07/11/Math-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0/">https://giyanwei.github.io.git/2024/07/11/Math-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Math/">Math</a><a class="post-meta__tags" href="/tags/Probability-theory/">Probability theory</a></div><div class="post_share"><div class="social-share" data-image="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/11/Math-%E5%B8%B8%E7%94%A8%E8%B7%9D%E7%A6%BB%E7%AE%97%E6%B3%95/" title="Math-常用距离算法"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="onerror=null;src='/graphics/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Math-常用距离算法</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/11/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E8%81%9A%E7%B1%BB%E7%BB%93%E5%90%88%E4%B8%9A%E5%8A%A1/" title="推荐系统-聚类结合业务"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202407082220802.png" onerror="onerror=null;src='/graphics/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">推荐系统-聚类结合业务</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Math-概率论-排列组合公式</div></div></a></div><div><a href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" title="Math-概率论-贝叶斯公式"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Math-概率论-贝叶斯公式</div></div></a></div><div><a href="/2024/07/11/Math-%E5%B8%B8%E7%94%A8%E8%B7%9D%E7%A6%BB%E7%AE%97%E6%B3%95/" title="Math-常用距离算法"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Math-常用距离算法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/graphics/avatar.jpg" onerror="this.onerror=null;this.src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Quasar Gu</div><div class="author-info__description">Computer Science student at Shanghai University with dreams of becoming a Psychoanalyst</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/giyanwei"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/giyanwei" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/quasar21@t.shu.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my digital space! I'm thrilled you've stopped by. Here, you'll find a collection of my thoughts, stories, and insights, all curated with the hope of resonating with you.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD%E7%9A%84%E4%B8%A4%E5%A4%A7%E5%AD%A6%E6%B4%BE"><span class="toc-number">1.</span> <span class="toc-text">1.统计推断的两大学派</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%B3%95%E7%9A%84%E5%BC%95%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">2.极大似然估计法的引例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="toc-number">3.</span> <span class="toc-text">3.似然函数的由来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E7%9A%84%E6%80%9D%E6%83%B3"><span class="toc-number">4.</span> <span class="toc-text">4.极大似然估计的思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E5%80%BC%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">5.</span> <span class="toc-text">5.极大似然估计值的计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-number">6.</span> <span class="toc-text">6.极大似然估计的例子</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E5%9F%BA%E7%A1%80/" title="Python Make Life Easier - Python基础"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python基础"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E5%9F%BA%E7%A1%80/" title="Python Make Life Easier - Python基础">Python Make Life Easier - Python基础</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E9%AB%98%E7%BA%A7/" title="Python Make Life Easier - Python高级"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python高级"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E9%AB%98%E7%BA%A7/" title="Python Make Life Easier - Python高级">Python Make Life Easier - Python高级</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python Make Life Easier - Python面向对象"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python面向对象"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python Make Life Easier - Python面向对象">Python Make Life Easier - Python面向对象</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Math-概率论-排列组合公式"/></a><div class="content"><a class="title" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式">Math-概率论-排列组合公式</a><time datetime="2024-07-11T08:20:02.000Z" title="Created 2024-07-11 16:20:02">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" title="Math-概率论-贝叶斯公式"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Math-概率论-贝叶斯公式"/></a><div class="content"><a class="title" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" title="Math-概率论-贝叶斯公式">Math-概率论-贝叶斯公式</a><time datetime="2024-07-11T08:19:11.000Z" title="Created 2024-07-11 16:19:11">2024-07-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Quasar Gu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to Quasar's <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

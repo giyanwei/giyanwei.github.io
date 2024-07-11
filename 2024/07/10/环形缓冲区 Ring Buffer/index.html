@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>环形缓冲区 Ring Buffer | Gu's Galaxy</title><meta name="author" content="Quasar Gu"><meta name="copyright" content="Quasar Gu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="环形缓冲区 Ring Buffer什么是环形缓冲区队列的一种。环形缓冲区是一个先进先出（FIFO）的闭环的存储空间。通俗的理解为，在内存中规划了一块“圆形”的地，将该“圆形”进行N（Ring Buffer的大小）等分。  如何使用环形缓冲区双指针，读指针指向环形缓冲区可读数据的第一个数据地址，写指针指向空白可写数据区块的第一个数据地址。 如图2，10个数据大小的Buffer，写入了5个数据，其读、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="环形缓冲区 Ring Buffer">
+<meta property="og:url" content="https://giyanwei.github.io.git/2024/07/10/%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%20Ring%20Buffer/index.html">
+<meta property="og:site_name" content="Gu&#39;s Galaxy">
+<meta property="og:description" content="环形缓冲区 Ring Buffer什么是环形缓冲区队列的一种。环形缓冲区是一个先进先出（FIFO）的闭环的存储空间。通俗的理解为，在内存中规划了一块“圆形”的地，将该“圆形”进行N（Ring Buffer的大小）等分。  如何使用环形缓冲区双指针，读指针指向环形缓冲区可读数据的第一个数据地址，写指针指向空白可写数据区块的第一个数据地址。 如图2，10个数据大小的Buffer，写入了5个数据，其读、">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-f2ad12f4c06e1ffa3e3cfe981e15c001_720w.webp">
+<meta property="article:published_time" content="2024-07-10T09:42:38.000Z">
+<meta property="article:modified_time" content="2024-07-10T09:56:54.322Z">
+<meta property="article:author" content="Quasar Gu">
+<meta property="article:tag" content="Dev">
+<meta property="article:tag" content="Backend">
+<meta property="article:tag" content="Data Structure">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-f2ad12f4c06e1ffa3e3cfe981e15c001_720w.webp"><link rel="shortcut icon" href="/graphics/favicon.jpg"><link rel="canonical" href="https://giyanwei.github.io.git/2024/07/10/%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%20Ring%20Buffer/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '环形缓冲区 Ring Buffer',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-10 17:56:54'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/graphics/avatar.jpg" onerror="onerror=null;src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic2.zhimg.com/80/v2-f2ad12f4c06e1ffa3e3cfe981e15c001_720w.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Gu's Galaxy"><span class="site-name">Gu's Galaxy</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">环形缓冲区 Ring Buffer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-07-10T09:42:38.000Z" title="Created 2024-07-10 17:42:38">2024-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-07-10T09:56:54.322Z" title="Updated 2024-07-10 17:56:54">2024-07-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="环形缓冲区 Ring Buffer"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="环形缓冲区-Ring-Buffer"><a href="#环形缓冲区-Ring-Buffer" class="headerlink" title="环形缓冲区 Ring Buffer"></a>环形缓冲区 Ring Buffer</h1><h2 id="什么是环形缓冲区"><a href="#什么是环形缓冲区" class="headerlink" title="什么是环形缓冲区"></a>什么是环形缓冲区</h2><p>队列的一种。环形缓冲区是一个先进先出（FIFO）的闭环的存储空间。通俗的理解为，在内存中规划了一块“圆形”的地，将该“圆形”进行N（Ring Buffer的大小）等分。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-f2ad12f4c06e1ffa3e3cfe981e15c001_720w.webp" alt="img"></p>
+<h2 id="如何使用环形缓冲区"><a href="#如何使用环形缓冲区" class="headerlink" title="如何使用环形缓冲区"></a>如何使用环形缓冲区</h2><p>双指针，读指针指向环形缓冲区可读数据的第一个数据地址，写指针指向空白可写数据区块的第一个数据地址。</p>
+<p>如图2，10个数据大小的Buffer，写入了5个数据，其读、写指针指向位置。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-3b35410971fd0f0001d2a37f0102b93f_720w.webp" alt="img"></p>
+<ul>
+<li>在进行写操作时，需要先进行判断环形缓冲区是否已写满，若已写满，最直接简单的方式就是直接覆盖原先已写的数据；其次依据实际的应用做相应的处理。</li>
+<li>在进行读操作时，需要进行判断环形缓冲区是否为空，若为空则无法读取数据。</li>
+</ul>
+<p><strong>环形缓冲区的核心精华在于对读写指针移动进行取模求余运算，计算出当前的位置，用于判断环形缓冲区当前的状态（空、满）</strong></p>
+<p><img src="https://pic3.zhimg.com/80/v2-5f995c47ffeea2b39c6a280f4c667a6a_720w.webp" alt="img"></p>
+<h2 id="环形缓冲区的作用"><a href="#环形缓冲区的作用" class="headerlink" title="环形缓冲区的作用"></a>环形缓冲区的作用</h2><h4 id="用作需要大量写入并且大量一次性读写的数据缓存区。"><a href="#用作需要大量写入并且大量一次性读写的数据缓存区。" class="headerlink" title="用作需要大量写入并且大量一次性读写的数据缓存区。"></a>用作需要大量写入并且大量一次性读写的数据缓存区。</h4><p>比如视频的写入读取：在视频播放的时候需要不断的进行写入读取操作，而且数据一经读出就会显示出来，下次就不再需要已经读出的数据了。使用环形缓冲区可以满足这个要求，并且实现读写分别进行，而且节省了空间。</p>
+<h4 id="用作进程间通信，减少加锁开销"><a href="#用作进程间通信，减少加锁开销" class="headerlink" title="用作进程间通信，减少加锁开销"></a>用作进程间通信，减少加锁开销</h4><p>由于环形缓冲区的读写分开特性，当两个线程进行通信的时候，可以采用环形缓冲区进行交流，一个进程读取，一个进程写入，由于读写的位置不同，并不需要加锁进行并发控制，也就减少了锁的时间开销</p>
+<blockquote>
+<p>refer link:</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zzb-Dream-90Time/p/7268419.html">https://www.cnblogs.com/zzb-Dream-90Time/p/7268419.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/545000051">https://zhuanlan.zhihu.com/p/545000051</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git">Quasar Gu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git/2024/07/10/%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%20Ring%20Buffer/">https://giyanwei.github.io.git/2024/07/10/%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%20Ring%20Buffer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Dev/">Dev</a><a class="post-meta__tags" href="/tags/Backend/">Backend</a><a class="post-meta__tags" href="/tags/Data-Structure/">Data Structure</a></div><div class="post_share"><div class="social-share" data-image="https://pic2.zhimg.com/80/v2-f2ad12f4c06e1ffa3e3cfe981e15c001_720w.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/11/Python-flask%E6%A1%86%E6%9E%B6/" title="Python Make Life Easier - Python - Flask框架"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="onerror=null;src='/graphics/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Python Make Life Easier - Python - Flask框架</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/10/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%20-%200%E3%80%81%E6%9E%B6%E6%9E%84%E7%AE%80%E4%BB%8B/" title="推荐系统 - 0、架构简介"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/image-20240604222956815.png" onerror="onerror=null;src='/graphics/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">推荐系统 - 0、架构简介</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/11/07/Oauth%E5%AD%A6%E4%B9%A0/" title="OAuth学习"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/b0ff8b6fe60089164dde3c3ad1f61ed0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-07</div><div class="title">OAuth学习</div></div></a></div><div><a href="/2024/07/11/Python%E5%9F%BA%E7%A1%80/" title="Python Make Life Easier - Python基础"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Python Make Life Easier - Python基础</div></div></a></div><div><a href="/2024/07/11/Python%E9%AB%98%E7%BA%A7/" title="Python Make Life Easier - Python高级"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Python Make Life Easier - Python高级</div></div></a></div><div><a href="/2024/07/11/Python-flask%E6%A1%86%E6%9E%B6/" title="Python Make Life Easier - Python - Flask框架"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Python Make Life Easier - Python - Flask框架</div></div></a></div><div><a href="/2024/07/11/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python Make Life Easier - Python面向对象"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Python Make Life Easier - Python面向对象</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/graphics/avatar.jpg" onerror="this.onerror=null;this.src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Quasar Gu</div><div class="author-info__description">Computer Science student at Shanghai University with dreams of becoming a Psychoanalyst</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/giyanwei"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/giyanwei" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/quasar21@t.shu.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my digital space! I'm thrilled you've stopped by. Here, you'll find a collection of my thoughts, stories, and insights, all curated with the hope of resonating with you.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA-Ring-Buffer"><span class="toc-number">1.</span> <span class="toc-text">环形缓冲区 Ring Buffer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">1.1.</span> <span class="toc-text">什么是环形缓冲区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">1.2.</span> <span class="toc-text">如何使用环形缓冲区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">环形缓冲区的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E4%BD%9C%E9%9C%80%E8%A6%81%E5%A4%A7%E9%87%8F%E5%86%99%E5%85%A5%E5%B9%B6%E4%B8%94%E5%A4%A7%E9%87%8F%E4%B8%80%E6%AC%A1%E6%80%A7%E8%AF%BB%E5%86%99%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98%E5%8C%BA%E3%80%82"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">用作需要大量写入并且大量一次性读写的数据缓存区。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E4%BD%9C%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%8C%E5%87%8F%E5%B0%91%E5%8A%A0%E9%94%81%E5%BC%80%E9%94%80"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">用作进程间通信，减少加锁开销</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E5%9F%BA%E7%A1%80/" title="Python Make Life Easier - Python基础"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python基础"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E5%9F%BA%E7%A1%80/" title="Python Make Life Easier - Python基础">Python Make Life Easier - Python基础</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E9%AB%98%E7%BA%A7/" title="Python Make Life Easier - Python高级"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python高级"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E9%AB%98%E7%BA%A7/" title="Python Make Life Easier - Python高级">Python Make Life Easier - Python高级</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python Make Life Easier - Python面向对象"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python面向对象"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python Make Life Easier - Python面向对象">Python Make Life Easier - Python面向对象</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Math-概率论-排列组合公式"/></a><div class="content"><a class="title" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式">Math-概率论-排列组合公式</a><time datetime="2024-07-11T08:20:02.000Z" title="Created 2024-07-11 16:20:02">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" title="Math-概率论-贝叶斯公式"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Math-概率论-贝叶斯公式"/></a><div class="content"><a class="title" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" title="Math-概率论-贝叶斯公式">Math-概率论-贝叶斯公式</a><time datetime="2024-07-11T08:19:11.000Z" title="Created 2024-07-11 16:19:11">2024-07-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://pic2.zhimg.com/80/v2-f2ad12f4c06e1ffa3e3cfe981e15c001_720w.webp')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Quasar Gu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to Quasar's <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Math-概率论-贝叶斯公式 | Gu's Galaxy</title><meta name="author" content="Quasar Gu"><meta name="copyright" content="Quasar Gu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、概率介绍在介绍贝叶斯公式之前，我们先了解下一些概念：  1）条件概率、联合概率、边缘概率 2）全概率公式 3）先验概率、似然函数、后验概率 4）逆向概率问题  1.1 条件概率、联合概率、边缘概率条件概率：事件B发生的情况下，事件A发生的概率，即P(A&#x3D;a|B&#x3D;b)，记作 P(A|B)。 联合概率：在多元概率分布中，多个条件同时成立的概率，即P(X&#x3D;a, Y&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Math-概率论-贝叶斯公式">
+<meta property="og:url" content="https://giyanwei.github.io.git/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Gu&#39;s Galaxy">
+<meta property="og:description" content="一、概率介绍在介绍贝叶斯公式之前，我们先了解下一些概念：  1）条件概率、联合概率、边缘概率 2）全概率公式 3）先验概率、似然函数、后验概率 4）逆向概率问题  1.1 条件概率、联合概率、边缘概率条件概率：事件B发生的情况下，事件A发生的概率，即P(A&#x3D;a|B&#x3D;b)，记作 P(A|B)。 联合概率：在多元概率分布中，多个条件同时成立的概率，即P(X&#x3D;a, Y&amp;#x">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg">
+<meta property="article:published_time" content="2024-07-11T08:19:11.000Z">
+<meta property="article:modified_time" content="2024-07-11T08:22:09.021Z">
+<meta property="article:author" content="Quasar Gu">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Probability theory">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg"><link rel="shortcut icon" href="/graphics/favicon.jpg"><link rel="canonical" href="https://giyanwei.github.io.git/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Math-概率论-贝叶斯公式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-11 16:22:09'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/graphics/avatar.jpg" onerror="onerror=null;src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Gu's Galaxy"><span class="site-name">Gu's Galaxy</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Math-概率论-贝叶斯公式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-07-11T08:19:11.000Z" title="Created 2024-07-11 16:19:11">2024-07-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-07-11T08:22:09.021Z" title="Updated 2024-07-11 16:22:09">2024-07-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Math-概率论-贝叶斯公式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、概率介绍"><a href="#一、概率介绍" class="headerlink" title="一、概率介绍"></a>一、概率介绍</h2><p>在介绍贝叶斯公式之前，我们先了解下一些概念：</p>
+<ul>
+<li>1）条件概率、联合概率、边缘概率</li>
+<li>2）全概率公式</li>
+<li>3）先验概率、似然函数、后验概率</li>
+<li>4）逆向概率问题</li>
+</ul>
+<h3 id="1-1-条件概率、联合概率、边缘概率"><a href="#1-1-条件概率、联合概率、边缘概率" class="headerlink" title="1.1 条件概率、联合概率、边缘概率"></a>1.1 条件概率、联合概率、边缘概率</h3><p><strong>条件概率</strong>：事件B发生的情况下，事件A发生的概率，即P(A&#x3D;a|B&#x3D;b)，记作 P(A|B)。</p>
+<p><strong>联合概率</strong>：在多元概率分布中，多个条件同时成立的概率，即P(X&#x3D;a, Y&#x3D;b)，记作P(AB)。</p>
+<p><strong>边缘概率</strong>：与联合概率对应的，单个随机变量的概率，即P(X&#x3D;a)或P(Y&#x3D;b)，记作P(A)。</p>
+<p>条件概率、联合概率、边缘概率的关系如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14479570-9759dbb9f5b8527e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/708/format/webp" alt="img"></p>
+<p>由<img src="https://math.jianshu.com/math?formula=P(A%7CB)=%5Cfrac%7BP(AB)%7D%7BP(B)%7D,P(B%7CA)=%5Cfrac%7BP(BA)%7D%7BP(A)%7D,P(AB)=P(BA)" alt="P(A|B)=\frac{P(AB)}{P(B)},P(B|A)=\frac{P(BA)}{P(A)},P(AB)=P(BA)">得到推导式：<br>      <img src="https://math.jianshu.com/math?formula=P(AB)=P(A%7CB)P(B)=P(B%7CA)P(A)" alt="P(AB)=P(A|B)P(B)=P(B|A)P(A)"><br> 公式变形：<br>      <img src="https://math.jianshu.com/math?formula=P(B%7CA)=%5Cfrac%7BP(A%7CB)P(B)%7D%7BP(A)%7D" alt="P(B|A)=\frac{P(A|B)P(B)}{P(A)}"></p>
+<h3 id="1-2-全概率公式"><a href="#1-2-全概率公式" class="headerlink" title="1.2 全概率公式"></a>1.2 全概率公式</h3><h4 id="划分"><a href="#划分" class="headerlink" title="划分"></a>划分</h4><p>设<img src="https://math.jianshu.com/math?formula=S" alt="S">为试验<img src="https://math.jianshu.com/math?formula=E" alt="E">的样本空间，<img src="https://math.jianshu.com/math?formula=B_1,B_2,...,B_n" alt="B_1,B_2,...,B_n">为<img src="https://math.jianshu.com/math?formula=E" alt="E">的一组事件，若<br>  <img src="https://math.jianshu.com/math?formula=1%EF%BC%89B_iB_j=%E2%88%85,%20i%E2%89%A0j(i,j=1,2,...,n);" alt="1）B_iB_j=∅, i≠j(i,j=1,2,...,n);"><br>  <img src="https://math.jianshu.com/math?formula=2%EF%BC%89B_1%E2%88%AAB_2%E2%88%AA...%E2%88%AAB_n=S," alt="2）B_1∪B_2∪...∪B_n=S,"><br> 则称<img src="https://math.jianshu.com/math?formula=B_1,B_2,...,B_n" alt="B_1,B_2,...,B_n">为样本空间<img src="https://math.jianshu.com/math?formula=S" alt="S">的一个<strong>划分</strong>。</p>
+<h4 id="全概率公式"><a href="#全概率公式" class="headerlink" title="全概率公式"></a>全概率公式</h4><p>设试验<img src="https://math.jianshu.com/math?formula=E" alt="E">的样本空间为<img src="https://math.jianshu.com/math?formula=S" alt="S">，<img src="https://math.jianshu.com/math?formula=A" alt="A">为<img src="https://math.jianshu.com/math?formula=E" alt="E">的事件，<img src="https://math.jianshu.com/math?formula=B_1,B_2,...,B_n" alt="B_1,B_2,...,B_n">为<img src="https://math.jianshu.com/math?formula=S" alt="S">的一个划分，且<img src="https://math.jianshu.com/math?formula=P(B_i)%3E0(i=1,2,...,n)" alt="P(B_i)&gt;0(i=1,2,...,n)">，则<br> <img src="https://math.jianshu.com/math?formula=P(A)=P(A%7CB_1)P(B_1)+P(A%7CB_2)P(B_2)+...+P(A%7CB_n)P(B_n)=%5Csum_%7Bi=1%7D%5EnP(A%7CB_i)P(B_i)" alt="P(A)=P(A|B_1)P(B_1)+P(A|B_2)P(B_2)+...+P(A|B_n)P(B_n)=\sum_{i=1}^nP(A|B_i)P(B_i)"><br> 称为<strong>全概率公式</strong>。</p>
+<h3 id="1-3-先验概率、似然函数、后验概率"><a href="#1-3-先验概率、似然函数、后验概率" class="headerlink" title="1.3 先验概率、似然函数、后验概率"></a>1.3 先验概率、似然函数、后验概率</h3><p><strong>先验（Prior）概率</strong>：在事件即将发生之前，做一个概率预判。一个事情发生前我们大概知道这件事情发生的概率，它一般是根据以往经验和分析得到的概率。</p>
+<p><strong>似然（Likelihood）函数</strong>：给定输出x时，关于参数θ的似然函数L(θ|x)（在数值上）等于给定参数θ后变量X的概率：L(θ|x)&#x3D;P(X&#x3D;x|θ)。</p>
+<p><strong>后验（Posterior）概率</strong>：根据事件的某些特征再次做出概率预判。当某个与之关联的事情发生后，我们去重新定义这个事情发生的概率。</p>
+<p>后验概率的计算要以先验概率为基础，在贝叶斯公式中，用先验概率和似然函数计算出来。</p>
+<blockquote>
+<p>举一个简单的例子：一口袋里有3只红球、2只白球，采用不放回方式摸取，</p>
+<p>求：</p>
+<p>⑴ 第一次摸到红球（记作A）的概率；</p>
+<p>⑵ 第二次摸到红球（记作B）的概率；</p>
+<p>⑶ 已知第二次摸到了红球，求第一次摸到的是红球的概率。</p>
+<p>解：</p>
+<p>⑴ P(A)&#x3D;3&#x2F;5，这就是先验概率；</p>
+<p>⑵ P(B)&#x3D;P(A)P(B|A)+P(A逆)P(B|A逆)&#x3D;3&#x2F;5</p>
+<p>⑶ P(A|B)&#x3D;P(A)P(B|A)&#x2F;P(B)&#x3D;1&#x2F;2，这就是后验概率。</p>
+</blockquote>
+<p>上例中，同样是求”第一次摸到红球的概率”，⑴ 是先验概率，P(B|A)是似然函数，而⑶是在”第二次摸到红球”的条件下求”第一次摸到红球的概率”，⑶是后验概率。</p>
+<h3 id="1-4-逆向概率问题"><a href="#1-4-逆向概率问题" class="headerlink" title="1.4 逆向概率问题"></a>1.4 逆向概率问题</h3><p>所谓“逆向概率”是相对“正向概率”而言。</p>
+<p>什么是<strong>“正向概率”</strong>呢？</p>
+<blockquote>
+<p>假设袋子里面有M只红球，N只白球，<br>它们除了颜色之外，其它性状完全一样。<br>你伸手进去摸一把，摸到红球的概率是多少是可以推算出来的。</p>
+</blockquote>
+<p>但反过来是否也可以计算呢？我们可以将它视为<strong>“逆向概率”</strong>：</p>
+<blockquote>
+<p><strong>如果我们事先并不知道袋子里面红球和白球的比例，<br>而是闭着眼睛摸出一些球，<br>然后根据手中红球和白球的比例，<br>对袋子里红球和白球的比例作出推测。</strong></p>
+</blockquote>
+<p>这个问题就是逆向概率问题。</p>
+<p><strong>通俗地讲，当你不能准确知悉某个事物本质时，你可以依靠经验去判断其本质属性。</strong></p>
+<h2 id="二、贝叶斯定理"><a href="#二、贝叶斯定理" class="headerlink" title="二、贝叶斯定理"></a>二、贝叶斯定理</h2><p>将逆概率公式（贝叶斯公式）看作已知结果推原因。</p>
+<p>由条件概率的推导式和全概率公式可推导出贝叶斯公式：<br>  <img src="https://math.jianshu.com/math?formula=P(B_i%7CA)=%5Cfrac%7BP(A%7CB_i)P(B_i)%7D%7BP(A)%7D=%5Cfrac%7BP(A%7CB_i)P(B_i)%7D%7B%5Csum_%7Bi=1%7D%5EnP(A%7CB_i)P(B_i)%7D,i=1,2,...,n." alt="P(B_i|A)=\frac{P(A|B_i)P(B_i)}{P(A)}=\frac{P(A|B_i)P(B_i)}{\sum_{i=1}^nP(A|B_i)P(B_i)},i=1,2,...,n."><br> 贝叶斯公式的条件：<img src="https://math.jianshu.com/math?formula=B_1,B_2,...,B_n" alt="B_1,B_2,...,B_n">为<img src="https://math.jianshu.com/math?formula=S" alt="S">的一个划分，或说 <img src="https://math.jianshu.com/math?formula=B" alt="B">事件为完备事件。</p>
+<p>在贝叶斯法则中，每个名词都有约定俗成的名称：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14479570-8b16778c3657b656.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/399/format/webp" alt="img"></p>
+<p>当分析样本大到接近总体样本时，样本中事件发生的概率将接近于总体中事件发生的概率。贝叶斯公式为利用搜集到的信息对原有信息进行修正提供了有效手段。在采样之前，经济主体对各种假设有一个判断(先验概率)，关于先验概率的分布，通常可根据经济主体的经验判断确定，较复杂精确的可利用最大熵技术、边际分布密度、相互信息原理等方法来确定先验概率分布。</p>
+<h6 id="贝叶斯方法的举例分析"><a href="#贝叶斯方法的举例分析" class="headerlink" title="贝叶斯方法的举例分析"></a>贝叶斯方法的举例分析</h6><p>挑战者M不知道原垄断者N属于高阻挠成本还是低阻挠成本类型，但M知道，如果N属于高阻挠成本类型，M进入市场时N进行阻挠的概率是20%(此时N为了保持垄断带来的高利润，不计成本地拼命阻挠)；如果N属于低阻挠类型，M进入市场时N进行阻挠的概率是100%。<br> 假设博弈开始M认为N属于高阻挠成本企业的概率为70%(先验概率)，请问：<br> 1）M估计自己进入市场时，受到N阻挠的概率？<br> 2）当M进入市场时，N确实进行阻挠。那么M重新估计自己进入市场时，受到N阻挠的概率？<br> 3）如果M再一次进入市场时，N又进行了阻挠。那么M重新估计自己进入市场时，受到N阻挠的概率？<br> 解：记“M认为N为高阻挠”为事件A，”B进入市场时，受到A阻挠”为事件B，则有P(B) &#x3D; P(A)×0.2 + (1-P(A))×1。<br> 1）先验概率P(A) &#x3D; 0.7<br> P(B) &#x3D; P(A)×0.2 + (1-P(A))×1&#x3D;0.7×0.2 + 0.3×1&#x3D;0.44<br> 2）当M进入市场时，N确实进行阻挠。<br> P(A|B)&#x3D;P(B|A)P(A)&#x2F;P(B)&#x3D;0.2×0.7÷0.44&#x3D;0.32<br> P(A’)&#x3D;P(A|B)&#x3D;0.32<br> P(B’)&#x3D;P(A’)×0.2 + (1-P(A’))×1&#x3D;0.32×0.2 + 0.68×1&#x3D;0.744<br> 3）如果M再一次进入市场，N又进行了阻挠。<br> P(A’|B’)&#x3D;P(B’|A’)P(A’)&#x2F;P(B’)&#x3D;0.2×0.32÷0.744&#x3D;0.086<br> P(A’’)&#x3D;P(A’|B’)&#x3D;0.086<br> P(B’’)&#x3D;P(A’’)×0.2 + (1-P(A’’))×1&#x3D;0.086×0.2 + 0.914×1&#x3D;0.9312<br> 这样，根据N一次又一次的阻挠行为，M对N所属类型的判断逐步发生变化，越来越倾向于将N判断为低阻挠成本企业了。</p>
+<p>由上例表明，在不完全信息动态博弈中，我们可以利用贝叶斯公式对原有判断进行修改更新。</p>
+<h2 id="三、朴素贝叶斯"><a href="#三、朴素贝叶斯" class="headerlink" title="三、朴素贝叶斯"></a>三、朴素贝叶斯</h2><p>朴素贝叶斯方法是贝叶斯算法的简化，它以贝叶斯定理为基础，并且假设特征条件之间相互独立。先通过已给定的训练集，以特征词之间独立作为前提假设，学习从输入到输出的联合概率分布，再基于学习到的模型，输入<img src="https://math.jianshu.com/math?formula=X" alt="X">求出使得后验概率最大的输出<img src="https://math.jianshu.com/math?formula=Y" alt="Y">。</p>
+<p>设有样本数据集<img src="https://math.jianshu.com/math?formula=D=" alt="D=">{<img src="https://math.jianshu.com/math?formula=d_1,d_2,...,d_n" alt="d_1,d_2,...,d_n">}，对应样本数据的特征属性集为<img src="https://math.jianshu.com/math?formula=X=" alt="X=">{<img src="https://math.jianshu.com/math?formula=x_1,x_2,...,x_d" alt="x_1,x_2,...,x_d">}，类变量为<img src="https://math.jianshu.com/math?formula=Y=" alt="Y=">{<img src="https://math.jianshu.com/math?formula=y_1,y_2,...,y_n" alt="y_1,y_2,...,y_n">}，即<img src="https://math.jianshu.com/math?formula=D" alt="D">可以分为<img src="https://math.jianshu.com/math?formula=y_1" alt="y_1">~<img src="https://math.jianshu.com/math?formula=y_m" alt="y_m">类。其中特征属性集<img src="https://math.jianshu.com/math?formula=x_1,x_2,...,x_d" alt="x_1,x_2,...,x_d">相互独立且随机，则<img src="https://math.jianshu.com/math?formula=Y" alt="Y">的先验概率<img src="https://math.jianshu.com/math?formula=P_%7Bprior%7D=P(Y)" alt="P_{prior}=P(Y)">，<img src="https://math.jianshu.com/math?formula=Y" alt="Y">的后验概率<img src="https://math.jianshu.com/math?formula=P_%7Bpost%7D=P(Y%7CX)" alt="P_{post}=P(Y|X)">，由朴素贝叶斯算法可得，后验概率可以由先验概率<img src="https://math.jianshu.com/math?formula=P_%7Bprior%7D=P(Y)" alt="P_{prior}=P(Y)">、证据<img src="https://math.jianshu.com/math?formula=P(X)" alt="P(X)">、类条件概率<img src="https://math.jianshu.com/math?formula=P(X%7CY)" alt="P(X|Y)">计算出：<br>       <img src="https://math.jianshu.com/math?formula=P(Y%7CX)=%5Cfrac%7BP(Y)P(X%7CY)%7D%7BP(X)%7D" alt="P(Y|X)=\frac{P(Y)P(X|Y)}{P(X)}"><br> 朴素贝叶斯基于各特征之间相互独立，在给定类别为<img src="https://math.jianshu.com/math?formula=y" alt="y">的情况下，有：<br>       <img src="https://math.jianshu.com/math?formula=P(X%7CY=y)=%5Cprod_%7Bi=1%7D%5Ed%20P(x_i%7CY=y)" alt="P(X|Y=y)=\prod_{i=1}^d P(x_i|Y=y)"><br> 由以上两式可以计算出后验概率为：<br>       <img src="https://math.jianshu.com/math?formula=P_%7Bpost%7D=P(Y%7CX)=%5Cfrac%7BP(Y)%5Cprod_%7Bi=1%7D%5EdP(x_i%7CY)%7D%7BP(X)%7D" alt="P_{post}=P(Y|X)=\frac{P(Y)\prod_{i=1}^dP(x_i|Y)}{P(X)}"><br> 由于<img src="https://math.jianshu.com/math?formula=P(X)" alt="P(X)">的大小是固定不变的，因此在比较后验概率时，只比较上式的分子部分即可。因此可以得到一个样本数据属于类别<img src="https://math.jianshu.com/math?formula=y_i" alt="y_i">的朴素贝叶斯计算如下所示：<br>       <img src="https://math.jianshu.com/math?formula=P(y_i%7Cx_1,x_2,...,x_d)=%5Cfrac%7BP(y_i)%5Cprod_%7Bj=1%7D%5Ed%20P(x_j%7Cy_i)%7D%7B%5Cprod_%7Bj=1%7D%5EdP(x_j)%7D" alt="P(y_i|x_1,x_2,...,x_d)=\frac{P(y_i)\prod_{j=1}^d P(x_j|y_i)}{\prod_{j=1}^dP(x_j)}"></p>
+<p>朴素贝叶斯的优缺点：</p>
+<ul>
+<li>优点：①由于假设了数据集属性之间是相互独立的，因此算法的逻辑性十分简单。②朴素贝叶斯对于不同类型的数据集不会呈现太大的差异性，健壮性比较好。③当数据集属性之间的关系相对比较独立时，朴素贝叶斯算法有较好的分类效果。</li>
+<li>缺点：假设属性独立性的条件也是朴素贝叶斯的不足之处。数据集之间往往都存在着相互关联，如果数据集间关联紧密，那么分类效果就会大大降低。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git">Quasar Gu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/">https://giyanwei.github.io.git/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Math/">Math</a><a class="post-meta__tags" href="/tags/Probability-theory/">Probability theory</a></div><div class="post_share"><div class="social-share" data-image="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="onerror=null;src='/graphics/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Math-概率论-排列组合公式</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/11/Math-%E5%B8%B8%E7%94%A8%E8%B7%9D%E7%A6%BB%E7%AE%97%E6%B3%95/" title="Math-常用距离算法"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="onerror=null;src='/graphics/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">Math-常用距离算法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/07/11/Math-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0/" title="Math-如何理解似然函数"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Math-如何理解似然函数</div></div></a></div><div><a href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Math-概率论-排列组合公式</div></div></a></div><div><a href="/2024/07/11/Math-%E5%B8%B8%E7%94%A8%E8%B7%9D%E7%A6%BB%E7%AE%97%E6%B3%95/" title="Math-常用距离算法"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-11</div><div class="title">Math-常用距离算法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/graphics/avatar.jpg" onerror="this.onerror=null;this.src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Quasar Gu</div><div class="author-info__description">Computer Science student at Shanghai University with dreams of becoming a Psychoanalyst</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/giyanwei"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/giyanwei" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/quasar21@t.shu.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my digital space! I'm thrilled you've stopped by. Here, you'll find a collection of my thoughts, stories, and insights, all curated with the hope of resonating with you.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E7%8E%87%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">一、概率介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E3%80%81%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E3%80%81%E8%BE%B9%E7%BC%98%E6%A6%82%E7%8E%87"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 条件概率、联合概率、边缘概率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 全概率公式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%92%E5%88%86"><span class="toc-number">1.2.1.</span> <span class="toc-text">划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text">全概率公式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%85%88%E9%AA%8C%E6%A6%82%E7%8E%87%E3%80%81%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0%E3%80%81%E5%90%8E%E9%AA%8C%E6%A6%82%E7%8E%87"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 先验概率、似然函数、后验概率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E9%80%86%E5%90%91%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 逆向概率问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">二、贝叶斯定理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%BE%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-number">2.0.0.0.1.</span> <span class="toc-text">贝叶斯方法的举例分析</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF"><span class="toc-number">3.</span> <span class="toc-text">三、朴素贝叶斯</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E5%9F%BA%E7%A1%80/" title="Python Make Life Easier - Python基础"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python基础"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E5%9F%BA%E7%A1%80/" title="Python Make Life Easier - Python基础">Python Make Life Easier - Python基础</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E9%AB%98%E7%BA%A7/" title="Python Make Life Easier - Python高级"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python高级"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E9%AB%98%E7%BA%A7/" title="Python Make Life Easier - Python高级">Python Make Life Easier - Python高级</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python Make Life Easier - Python面向对象"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/290b5b7674f1ac86962302caae24f471.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python Make Life Easier - Python面向对象"/></a><div class="content"><a class="title" href="/2024/07/11/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python Make Life Easier - Python面向对象">Python Make Life Easier - Python面向对象</a><time datetime="2024-07-11T12:30:21.000Z" title="Created 2024-07-11 20:30:21">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Math-概率论-排列组合公式"/></a><div class="content"><a class="title" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F/" title="Math-概率论-排列组合公式">Math-概率论-排列组合公式</a><time datetime="2024-07-11T08:20:02.000Z" title="Created 2024-07-11 16:20:02">2024-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" title="Math-概率论-贝叶斯公式"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Math-概率论-贝叶斯公式"/></a><div class="content"><a class="title" href="/2024/07/11/Math-%E6%A6%82%E7%8E%87%E8%AE%BA-%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F/" title="Math-概率论-贝叶斯公式">Math-概率论-贝叶斯公式</a><time datetime="2024-07-11T08:19:11.000Z" title="Created 2024-07-11 16:19:11">2024-07-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/11eae8b07d7d8bf7064acda1feeaa877.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Quasar Gu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to Quasar's <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
