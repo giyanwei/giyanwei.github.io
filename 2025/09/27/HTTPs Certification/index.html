@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTTPs Certification | Gu's Galaxy</title><meta name="author" content="Quasar Gu"><meta name="copyright" content="Quasar Gu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1、HTTPS是什么？HTTPS就是经过加密解密后的HTTP。HTTPS 也是一个应用层协议，是在 HTTP 协议的基础上引入了一个加密层。 那HTTP协议为什么要加密呢？因为HTTP本身很不安全！HTTP 协议内容都是按照文本的方式明文传输的. 这就导致在传输过程中出现一些被篡改的情况。 2、概念准备2.1.什么是加密、解密、密钥 加密：就是把明文 (要传输的信息)进行一系列变换, 生成密文 解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPs Certification">
+<meta property="og:url" content="https://giyanwei.github.io.git/2025/09/27/HTTPs%20Certification/index.html">
+<meta property="og:site_name" content="Gu&#39;s Galaxy">
+<meta property="og:description" content="1、HTTPS是什么？HTTPS就是经过加密解密后的HTTP。HTTPS 也是一个应用层协议，是在 HTTP 协议的基础上引入了一个加密层。 那HTTP协议为什么要加密呢？因为HTTP本身很不安全！HTTP 协议内容都是按照文本的方式明文传输的. 这就导致在传输过程中出现一些被篡改的情况。 2、概念准备2.1.什么是加密、解密、密钥 加密：就是把明文 (要传输的信息)进行一系列变换, 生成密文 解">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png">
+<meta property="article:published_time" content="2025-09-27T08:37:40.000Z">
+<meta property="article:modified_time" content="2025-09-27T13:49:21.809Z">
+<meta property="article:author" content="Quasar Gu">
+<meta property="article:tag" content="Dev">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png"><link rel="shortcut icon" href="/graphics/favicon.jpg"><link rel="canonical" href="https://giyanwei.github.io.git/2025/09/27/HTTPs%20Certification/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTTPs Certification',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-27 21:49:21'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/graphics/avatar.jpg" onerror="onerror=null;src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Gu's Galaxy"><span class="site-name">Gu's Galaxy</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">HTTPs Certification</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-27T08:37:40.000Z" title="Created 2025-09-27 16:37:40">2025-09-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-09-27T13:49:21.809Z" title="Updated 2025-09-27 21:49:21">2025-09-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HTTPs Certification"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1、HTTPS是什么？"><a href="#1、HTTPS是什么？" class="headerlink" title="1、HTTPS是什么？"></a>1、HTTPS是什么？</h2><p>HTTPS就是经过加密解密后的HTTP。HTTPS 也是一个<strong>应用层协议</strong>，是在 HTTP 协议的基础上引入了一个<strong>加密层</strong>。</p>
+<p>那HTTP协议为什么要加密呢？因为<strong>HTTP本身很不安全</strong>！HTTP 协议内容都是按照文本的方式<strong>明文传输</strong>的. 这就导致在传输过程中出现一些被篡改的情况。</p>
+<h2 id="2、概念准备"><a href="#2、概念准备" class="headerlink" title="2、概念准备"></a>2、概念准备</h2><h3 id="2-1-什么是加密、解密、密钥"><a href="#2-1-什么是加密、解密、密钥" class="headerlink" title="2.1.什么是加密、解密、密钥"></a>2.1.什么是加密、解密、密钥</h3><ul>
+<li>加密：就是把明文 (要传输的信息)进行一系列变换, 生成密文</li>
+<li>解密：就是把密文再进行一系列变换, 还原成明文 .</li>
+<li>密钥：在这个加密和解密的过程中, 往往需要一个或者多个中间的数据, 辅助进行这个过程, 这样的数据称为密钥</li>
+</ul>
+<h3 id="2-2-为什么要加密"><a href="#2-2-为什么要加密" class="headerlink" title="2.2.为什么要加密"></a>2.2.为什么要加密</h3><p>案例，臭名昭著的 “<strong>运营商劫持</strong>“：</p>
+<p>下载一个 天天动听，未被劫持的效果：点击下载按钮, 就会弹出天天动听的下载链接.<br><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibvMhBCzDz7lvdo3S9HPe0K7MARyhZmBwqrKM2yfVbbQeRx3bVibuHFgicw/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=1" alt="图片"></p>
+<p>已被劫持的效果, 点击下载按钮, 就会弹出 QQ 浏览器的下载链接<br><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibvbERMHgVUAaGAcrHqm7QUOLGcUeDwvXJGaPAZAarxLBx4ofEmse4ibFQ/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=2" alt="图片"></p>
+<p>客户端与服务端进行通信不是直接进行通信的，而是通过第三方的运营商进行信息的中转。<br>作为中间人的运营商就能够看到客户端和服务端通信的信息是是什么，这样势必会造成用户隐私的泄漏！</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibvdNCICLt8rNgiaKOOvt9IxIibKLLuAnnbf0JB6nt0ozM3wFZ8wZGopElg/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=3" alt="图片"></p>
+<p><strong>在互联网上, 明文传输是比较危险的事情!!!</strong><br>HTTPS 就是在 HTTP 的基础上进行了加密, 进一步的来保证用户的信息安全~</p>
+<h3 id="2-3-常见的加密方式"><a href="#2-3-常见的加密方式" class="headerlink" title="2.3.常见的加密方式"></a>2.3.常见的加密方式</h3><h4 id="1-对称加密"><a href="#1-对称加密" class="headerlink" title="1.对称加密"></a>1.对称加密</h4><p>采用单钥密码系统的加密方法，<strong>同一个密钥可以同时用作信息的加密和解密</strong>，这种加密方法称为对称加密，也称为单密钥加密，特征：加密和解密所用的密钥是相同的</p>
+<p>特点：<br>算法公开、计算量⼩、<strong>加密速度快</strong>、加密效率高</p>
+<p>案例：<br>一个简单的对称加密, <strong>按位异或</strong><br>假设 明文 a &#x3D; 1234, 密钥 key &#x3D; 8888<br>则加密 a ^ key 得到的密文 b 为 9834.<br>然后针对密文 9834 再次进行运算 b ^ key, 得到的就是原来的明文 1234.<br>(对于字符串的对称加密也是同理, 每一个字符都可以表示成一个数字)<br>当然, 按位异或只是最简单的对称加密。HTTPS 中并不是使用按位异或。</p>
+<p>常见对称加密算法(了解)：DES、3DES、AES、TDEA、Blowfish、RC2 等</p>
+<h4 id="2-非对称加密"><a href="#2-非对称加密" class="headerlink" title="2.非对称加密"></a>2.非对称加密</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>需要两个密钥来进行加密和解密，这两个密钥是公开密钥（public key，简称<strong>公钥</strong>）和私有密钥（private key，简称<strong>私钥</strong>）。</p>
+<p>常见非对称加密算法(了解)：RSA，DSA，ECDSA</p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><p><strong>算法强度复杂、安全性依赖于算法与密钥但是由于其算法复杂，而使得加密解密速度没有对称加密解密的速度快。</strong></p>
+<p>非对称加密要用到两个密钥, 一个叫做 “公钥”, 一个叫做 “私钥”.</p>
+<p>公钥和私钥是配对的. 最大的缺点就是运算速度非常慢，比对称加密要慢很多.</p>
+<h5 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h5><p>通过公钥对明文加密, 变成密文<br>通过私钥对密文解密, 变成明文</p>
+<p>也可以反着用</p>
+<p>通过私钥对明文加密, 变成密文<br>通过公钥对密文解密, 变成明文</p>
+<h5 id="数据摘要-数据指纹"><a href="#数据摘要-数据指纹" class="headerlink" title="数据摘要 &amp;&amp; 数据指纹"></a>数据摘要 &amp;&amp; 数据指纹</h5><p>数据摘要为什么叫做数据指纹，因为数据摘要具有唯一性，跟人的指纹一样具有唯一性</p>
+<p>数字指纹(数据摘要)其基本原理是利用单向散列函数(Hash 函数)对信息进行运算,生成一串固定长度的数字摘要。数字指纹并不是一种加密机制,但可以用来判断数据有没有被篡改。</p>
+<p><strong>摘要常见算法****：</strong>有 MD5、SHA1、SHA256、SHA512 等，算法把无限的映射成有限，因此可能会有碰撞（两个不同的信息，算出的摘要相同，但是概率非常低）</p>
+<p><strong>摘要特征：</strong>和加密算法的区别是，摘要严格意义不是加密，因为没有解密，只不过从摘要很难反推原信息，通常用来进行数据对比</p>
+<p>比如数据库明文密码保存——不推荐，我们就可以将密码进行摘要保存</p>
+<h5 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h5><p>摘要经过加密，就得到数字签名</p>
+<h2 id="3、HTTPS-的工作过程探究"><a href="#3、HTTPS-的工作过程探究" class="headerlink" title="3、HTTPS 的工作过程探究"></a>3、HTTPS 的工作过程探究</h2><p>既然要保证数据安全, 就需要进行 “加密”. 网络传输中不再直接传输明文了, 而是加密之后的 “密文”. 加密的方式有很多, 但是整体可以分成两大类: 对称加密 和 非对称加密</p>
+<h3 id="四种加密通信方案"><a href="#四种加密通信方案" class="headerlink" title="四种加密通信方案"></a>四种加密通信方案</h3><h4 id="方案-1-只使用对称加密"><a href="#方案-1-只使用对称加密" class="headerlink" title="方案 1 - 只使用对称加密"></a>方案 1 - 只使用对称加密</h4><p>如果通信双方都各自持有同一个密钥 X，且没有别人知道，这两方的通信安全当然是可以被保证的（除非密钥被破解）</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibv74yXY9u9dogIumRHiaqY8CZt934icZ6nNo3atL20U2oOnhJDLFYMvnCg/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=4" alt="图片"></p>
+<p>但是我们怎么让客户端双方都知道这个锁是什么呢，如果明文传递的话，不就是又泄露了！</p>
+<p>所以只用对称加密，首次的时候，无法同步双方的密钥X。</p>
+<h4 id="方案-2-只使用非对称加密"><a href="#方案-2-只使用非对称加密" class="headerlink" title="方案 2 - 只使用非对称加密"></a>方案 2 - 只使用非对称加密</h4><p>鉴于非对称加密的机制，如果服务器先把公钥以明文方式传输给浏览器，之后浏览器向服务器传数据前都先用这个公钥加密好再传，从客户端到服务器信道似乎是安全的(有安全问题)，因为只有服务器有相应的私钥能解开公钥加密的数据。</p>
+<p>但是服务器到浏览器的这条路怎么保障安全？</p>
+<p>如果服务器用它的私钥加密数据传给浏览器，那么浏览器用公钥可以解密它，而这个公钥是一开始通过明文传输给浏览器的，若这个公钥被中间人劫持到了，那他也能用该公钥解密服务器传来的信息了！</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibvcTMJBziaQicKK0nLCFUXmEJ5Hd2az41pweVPV3o4LbxygvUHRliagY5Mg/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=5" alt="图片"></p>
+<p>方案二保证单向的数据安全（但也是临时的），并且运算速度非常慢，所以也不采用！</p>
+<h5 id="方案2的安全隐患："><a href="#方案2的安全隐患：" class="headerlink" title="方案2的安全隐患："></a>方案2的安全隐患：</h5><p>但是服务器到浏览器的这条路怎么保障安全？</p>
+<p>如果服务器用它的私钥加密数据传给浏览器，那么浏览器用公钥可以解密它，而这个公钥是一开始通过明文传输给浏览器的，若这个公钥被中间人劫持到了，那他也能用该公钥解密服务器传来的信息了！</p>
+<p>所以也存在安全隐患！</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibvA2oc1aaQH3Jb4b3ibdiaF2zhr6x02OpbvUISBSDuOkDR65OYwUIMOtLw/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=6" alt="图片"></p>
+<h4 id="方案-3-双方都使用非对称加密"><a href="#方案-3-双方都使用非对称加密" class="headerlink" title="方案 3 - 双方都使用非对称加密"></a>方案 3 - 双方都使用非对称加密</h4><p>服务端拥有公钥 S 与对应的私钥 S’，客户端拥有公钥 C 与对应的私钥 C’</p>
+<ol>
+<li>客户和服务端交换公钥</li>
+<li>客户端给服务端发信息：先用 S 对数据加密，再发送，只能由服务器解密，因为只有服务器有私钥 S’</li>
+<li>服务端给客户端发信息：先用 C 对数据加密，在发送，只能由客户端解密，因为只有客户端有私钥 C’</li>
+</ol>
+<h5 id="方案3存在的问题："><a href="#方案3存在的问题：" class="headerlink" title="方案3存在的问题："></a>方案3存在的问题：</h5><p>其实也并不安全！（同方案二）</p>
+<p>通信速度会比较慢！</p>
+<h4 id="方案-4-非对称加密-对称加密"><a href="#方案-4-非对称加密-对称加密" class="headerlink" title="方案 4 - 非对称加密 + 对称加密"></a>方案 4 - 非对称加密 + 对称加密</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibv4kdqR3nalxiarVoX1IrQ8PzI48eL6VtCJiaicqK8XjJssS3Nqs1uAgwuw/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=7" alt="图片"></p>
+<p><strong>通信过程：</strong></p>
+<ol>
+<li>服务端具有非对称公钥 S 和私钥 S’</li>
+<li>客户端发起 https 请求，获取服务端公钥 S</li>
+<li>客户端在本地生成对称密钥 C, 通过公钥 S 加密, 发送给服务器.</li>
+<li>由于中间的网络设备没有私钥, 即使截获了数据, 也无法还原出内部的原文, 也就无法获取到对称密钥(真的吗？)</li>
+<li>服务器通过私钥 S’解密, 还原出客户端发送的对称密钥 C. 并且使用这个对称密钥加密给客户端返回的响应数据.</li>
+<li>后续客户端和服务器的通信都只用对称加密即可. 由于该密钥只有客户端和服务器两个主机知道, 其他主机&#x2F;设备不知道密钥即使截获数据也没有意义。</li>
+</ol>
+<p>由于对称加密的效率比非对称加密⾼很多, 因此<strong>只是在开始阶段协商密钥的时候使用非对称加密, 后续的传输仍然使用对称加密</strong>，所以效率问题解决了！</p>
+<p>虽然上面已经比较接近答案了，但是依旧有安全问题</p>
+<p>方案 2，方案 3，方案 4 都存在一个问题，<strong>如果最开始，中间人就已经开始攻击了呢？</strong></p>
+<h3 id="中间人攻击-针对上面的场景"><a href="#中间人攻击-针对上面的场景" class="headerlink" title="中间人攻击 - 针对上面的场景"></a>中间人攻击 - 针对上面的场景</h3><p>Man-in-the-MiddleAttack，简称“MITM 攻击”</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibv6Fc8ib6XHJYoYZbw5cWxKMwyIG7HpqO4kYU1PLicf0WR5d6Pia9xsicPwA/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=8" alt="图片"></p>
+<p>确实，在方案 2&#x2F;3&#x2F;4 中，客户端获取到公钥 S 之后，对客户端形成的对称秘钥 X 用服务端给客户端的公钥 S 进行加密，中间人即使窃取到了数据，此时中间人确实无法解出客户端形成的密钥 X，因为只有服务器有私钥 S’。</p>
+<p>但是中间人的攻击，如果在最开始握手协商的时候就进行中间人攻击了，那就不一定了，假设hacker 已经成功成为中间人了呢？！</p>
+<p><strong>攻击流程：</strong><br>服务器具有非对称加密算法的公钥 S，私钥 S’，中间人具有非对称加密算法的公钥 M，私钥 M’</p>
+<ol>
+<li>客户端向服务器发起请求，服务器明文传送公钥 S 给客户端</li>
+<li>中间人劫持数据报文，提取公钥 S 并保存好，然后将被劫持报文中的公钥 S 替换成为自己的公钥 M，并将伪造报文发给客户端</li>
+<li>客户端收到报文，提取公钥 M(自己当然不知道公钥被更换过了)，自己形成对称秘钥 X，用公钥 M 加密 X，形成报文发送给服务器</li>
+<li>中间人劫持后，直接用自己的私钥 M’进行解密，得到通信秘钥 X，再用曾经保存的服务端公钥 S 加密后，将报文推送给服务器</li>
+<li>服务器拿到报文，用自己的私钥 S’解密，得到通信秘钥 X</li>
+<li>双方开始采用 X 进行对称加密，进行通信。但是一切都在中间人的掌握中，劫持数据，进行窃听甚至修改，都是可以的</li>
+</ol>
+<p>上面的攻击方案，同样适用于方案 2，方案 3</p>
+<p><strong>问题本质：客户端无法确定收到的公钥是否是合法的！</strong> 那么如何让client得知，自己收到的“公钥”是合法的呢？</p>
+<h3 id="证书的引入"><a href="#证书的引入" class="headerlink" title="证书的引入"></a>证书的引入</h3><h4 id="CA-认证"><a href="#CA-认证" class="headerlink" title="CA 认证"></a>CA 认证</h4><p>服务端在使用 HTTPS 前，需要向 CA 机构申领一份数字证书，数字证书里含有证书申请者信息、公钥信息等。服务器把证书传输给浏览器，浏览器从证书里获取公钥就行了，证书就如身份证，证明服务端公钥的权威性</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibvpMpISFnlCytF6iavacJFO6xr46IGTfebibeGO6ZWuaL2CPcLNxOUM9iag/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=9" alt="图片"></p>
+<p>这个证书可以理解成是一个结构化的字符串, 里面包含了以下信息:<br>• 证书发布机构<br>• 证书有效期<br>• <strong>公钥</strong><br>• 证书所有者<br>• <strong>数字签名</strong></p>
+<h3 id="理解数字签名"><a href="#理解数字签名" class="headerlink" title="理解数字签名"></a>理解数字签名</h3><p>数字签名就是将数据摘要或者指纹进行加密。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibvahdECiczYiaZQCo7UOCUNiaI32WmEy2L76SIMrWXK64JHt1yWf6mHHRZA/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=10" alt="图片"></p>
+<p>当服务端申请 CA 证书的时候，CA 机构会对该服务端进行审核，并专门为该网站形成数字签名过程</p>
+<p>CA 机构拥有非对称加密的私钥 A 和公钥 A’</p>
+<p>CA 机构对服务端申请的证书明文数据进行 hash，形成数据摘要</p>
+<p>然后对数据摘要用 CA 私钥 A’加密，得到数字签名 S</p>
+<p><strong>验证过程：</strong></p>
+<ol>
+<li>接收到数据时，先将原始数据和签名分开，</li>
+<li>然后原始数据通过同样的散列算法再次获得到一个散列值。</li>
+<li>将签名通过签名者的公钥进行解密，新散列值和签名进行比较，最终就可以判断数据是否有被更改了！</li>
+</ol>
+<p>那么客户端的签名者公钥是从哪里来的呢？<br><strong>所有的浏览器（客户端），一般都要有内置可信的CA机构或者授权的子机构的公钥！</strong></p>
+<h2 id="HTTPS最终方案：非对称加密-对称加密-证书认证"><a href="#HTTPS最终方案：非对称加密-对称加密-证书认证" class="headerlink" title="HTTPS最终方案：非对称加密 + 对称加密 + 证书认证"></a>HTTPS最终方案：非对称加密 + 对称加密 + 证书认证</h2><p>在客户端和服务器刚一建立连接的时候, 服务器给客户端返回一个 证书，证书包含了之前服务端的公钥, 也包含了网站的身份信息.</p>
+<h4 id="客户端进行认证"><a href="#客户端进行认证" class="headerlink" title="客户端进行认证"></a>客户端进行认证</h4><p>client第一次请求，得到返回结果，不仅仅得到了公钥，实际上client得到的是一个”证书“，CA机构签发的证书。</p>
+<p>客户端获取到这个证书之后, 会对证书进行校验(防止证书是伪造的)：</p>
+<ol>
+<li>判定证书的有效期是否过期</li>
+<li>判定证书的发布机构是否受信任(操作系统中已内置的受信任的证书发布机构).</li>
+<li>验证证书是否被篡改: <ol>
+<li><strong>从系统中拿到该证书发布机构的公钥</strong>, 对签名解密, 得到一个hash 值(称为数据摘要), 设为 hash1. </li>
+<li>然后计算整个证书的 hash 值, 设为 hash2. </li>
+<li>对比 hash1 和 hash2 是否相等. 如果相等, 则说明证书是没有被篡改过的</li>
+</ol>
+</li>
+</ol>
+<h4 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h4><h5 id="中间人有没有可能篡改该证书？"><a href="#中间人有没有可能篡改该证书？" class="headerlink" title="中间人有没有可能篡改该证书？"></a>中间人有没有可能篡改该证书？</h5><p>由于中间人没有 CA 机构的私钥，所以无法 hash 之后用私钥加密形成签名，那么也就没法办法对篡改后的证书形成匹配的签名，这个世界上只有CA机构有私钥，也就意味着，只有CA机构才有对数据进行签名的能力！</p>
+<h5 id="中间人整个掉包证书？"><a href="#中间人整个掉包证书？" class="headerlink" title="中间人整个掉包证书？"></a>中间人整个掉包证书？</h5><p>因为中间人没有 CA 私钥，所以无法制作假的证书</p>
+<p>所以中间人只能向 CA 申请真证书，然后用自己申请的证书进行掉包</p>
+<p>这个确实能做到证书的整体掉包，但是别忘记，证书明文中包含了域名等服务端认证信息，如果整体掉包，客户端依旧能够识别出来。</p>
+<p>永远记住：中间人没有 CA 私钥，所以对任何证书都无法进行合法修改，包括自己的</p>
+<h5 id="中间人伪造整个证书，造出一整套公钥，私钥，数字签名？"><a href="#中间人伪造整个证书，造出一整套公钥，私钥，数字签名？" class="headerlink" title="中间人伪造整个证书，造出一整套公钥，私钥，数字签名？"></a>中间人伪造整个证书，造出一整套公钥，私钥，数字签名？</h5><blockquote>
+<p><strong>你无法用“自己配的私钥”去给证书签名，因为客户端只会用“受信任的根CA的公钥”去验证签名。</strong></p>
+</blockquote>
+<ul>
+<li>你伪造的证书<strong>不是由受信任CA签名的</strong>，浏览器会立刻识别出来。</li>
+<li>除非你<strong>拿到了某个受信任CA的私钥</strong>（比如DigiCert或Let’s Encrypt的），否则你签的证书<strong>不会被信任</strong>。</li>
+<li>这就是 <strong>“根CA私钥泄露”是灾难性事件</strong> 的原因。</li>
+</ul>
+<h5 id="为什么签名不直接加密，而是要先-hash-形成摘要"><a href="#为什么签名不直接加密，而是要先-hash-形成摘要" class="headerlink" title="为什么签名不直接加密，而是要先 hash 形成摘要?"></a>为什么签名不直接加密，而是要先 hash 形成摘要?</h5><p>缩⼩签名密文的⻓度,加快数字签名的验证签名的运算速度</p>
+<p><strong>HTTPS通信的完整流程：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/esZiajffQShQXFm9juSuqT7ybZ5GUA5ibvicD9RZlicBkNAk5RbKicFhzialsbsNoJ1o9Y22iasn3jPllergUU5MK3muw/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=11" alt="图片"></p>
+<p><strong>总结</strong></p>
+<p>HTTPS 工作过程中涉及到的密钥有三组：</p>
+<p><strong>第一组(非对称加密):</strong> 用于校验证书是否被篡改. 服务器持有私钥(私钥在形成 CSR 文件与申请证书时获得), 客户端持有公钥(操作系统包含了可信任的 CA 认证机构有哪些, 同时持有对应的公钥). 服务器在客户端请求时，返回携带签名的证书. 客户端通过这个公钥进行证书验证, 保证证书的合法性，进一步保证证书中携带的服务端公钥权威性。</p>
+<p><strong>第二组(非对称加密):</strong> 用于协商生成对称加密的密钥. 客户端用收到的 CA 证书中的公钥(是可被信任的)给随机生成的对称加密的密钥加密, 传输给服务器, 服务器通过私钥解密获取到对称加密密钥.</p>
+<p><strong>第三组(对称加密):</strong> 客户端和服务器后续传输的数据都通过这个对称密钥加密解密.</p>
+<p>其实一切的关键都是围绕这个对称加密的密钥. 其他的机制都是辅助这个密钥工作的！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git">Quasar Gu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git/2025/09/27/HTTPs%20Certification/">https://giyanwei.github.io.git/2025/09/27/HTTPs%20Certification/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Dev/">Dev</a></div><div class="post_share"><div class="social-share" data-image="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/05/21/Python%E9%AB%98%E7%BA%A7/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info"></div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/11/07/Oauth%E5%AD%A6%E4%B9%A0/" title="Oauth学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-07</div><div class="title">Oauth学习</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/graphics/avatar.jpg" onerror="this.onerror=null;this.src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Quasar Gu</div><div class="author-info__description">Computer Science student at Shanghai University with dreams of becoming a Psychoanalyst</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/giyanwei"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/giyanwei" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/quasar21@t.shu.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my digital space! I'm thrilled you've stopped by. Here, you'll find a collection of my thoughts, stories, and insights, all curated with the hope of resonating with you.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81HTTPS%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">1、HTTPS是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%A6%82%E5%BF%B5%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">2、概念准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8A%A0%E5%AF%86%E3%80%81%E8%A7%A3%E5%AF%86%E3%80%81%E5%AF%86%E9%92%A5"><span class="toc-number">2.1.</span> <span class="toc-text">2.1.什么是加密、解密、密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0%E5%AF%86"><span class="toc-number">2.2.</span> <span class="toc-text">2.2.为什么要加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F"><span class="toc-number">2.3.</span> <span class="toc-text">2.3.常见的加密方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">2.3.1.</span> <span class="toc-text">1.对称加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.非对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-number">2.3.2.3.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%91%98%E8%A6%81-%E6%95%B0%E6%8D%AE%E6%8C%87%E7%BA%B9"><span class="toc-number">2.3.2.4.</span> <span class="toc-text">数据摘要 &amp;&amp; 数据指纹</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="toc-number">2.3.2.5.</span> <span class="toc-text">数字签名</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81HTTPS-%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B%E6%8E%A2%E7%A9%B6"><span class="toc-number">3.</span> <span class="toc-text">3、HTTPS 的工作过程探究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E5%8A%A0%E5%AF%86%E9%80%9A%E4%BF%A1%E6%96%B9%E6%A1%88"><span class="toc-number">3.1.</span> <span class="toc-text">四种加密通信方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88-1-%E5%8F%AA%E4%BD%BF%E7%94%A8%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">3.1.1.</span> <span class="toc-text">方案 1 - 只使用对称加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88-2-%E5%8F%AA%E4%BD%BF%E7%94%A8%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">3.1.2.</span> <span class="toc-text">方案 2 - 只使用非对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%A1%882%E7%9A%84%E5%AE%89%E5%85%A8%E9%9A%90%E6%82%A3%EF%BC%9A"><span class="toc-number">3.1.2.1.</span> <span class="toc-text">方案2的安全隐患：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88-3-%E5%8F%8C%E6%96%B9%E9%83%BD%E4%BD%BF%E7%94%A8%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">3.1.3.</span> <span class="toc-text">方案 3 - 双方都使用非对称加密</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%A1%883%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">方案3存在的问题：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88-4-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">3.1.4.</span> <span class="toc-text">方案 4 - 非对称加密 + 对称加密</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB-%E9%92%88%E5%AF%B9%E4%B8%8A%E9%9D%A2%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="toc-number">3.2.</span> <span class="toc-text">中间人攻击 - 针对上面的场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E4%B9%A6%E7%9A%84%E5%BC%95%E5%85%A5"><span class="toc-number">3.3.</span> <span class="toc-text">证书的引入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CA-%E8%AE%A4%E8%AF%81"><span class="toc-number">3.3.1.</span> <span class="toc-text">CA 认证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="toc-number">3.4.</span> <span class="toc-text">理解数字签名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTPS%E6%9C%80%E7%BB%88%E6%96%B9%E6%A1%88%EF%BC%9A%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86-%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81"><span class="toc-number">4.</span> <span class="toc-text">HTTPS最终方案：非对称加密 + 对称加密 + 证书认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%AE%A4%E8%AF%81"><span class="toc-number">4.0.1.</span> <span class="toc-text">客户端进行认证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">4.0.2.</span> <span class="toc-text">常见问题：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%9C%89%E6%B2%A1%E6%9C%89%E5%8F%AF%E8%83%BD%E7%AF%A1%E6%94%B9%E8%AF%A5%E8%AF%81%E4%B9%A6%EF%BC%9F"><span class="toc-number">4.0.2.1.</span> <span class="toc-text">中间人有没有可能篡改该证书？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%95%B4%E4%B8%AA%E6%8E%89%E5%8C%85%E8%AF%81%E4%B9%A6%EF%BC%9F"><span class="toc-number">4.0.2.2.</span> <span class="toc-text">中间人整个掉包证书？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BA%BA%E4%BC%AA%E9%80%A0%E6%95%B4%E4%B8%AA%E8%AF%81%E4%B9%A6%EF%BC%8C%E9%80%A0%E5%87%BA%E4%B8%80%E6%95%B4%E5%A5%97%E5%85%AC%E9%92%A5%EF%BC%8C%E7%A7%81%E9%92%A5%EF%BC%8C%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%EF%BC%9F"><span class="toc-number">4.0.2.3.</span> <span class="toc-text">中间人伪造整个证书，造出一整套公钥，私钥，数字签名？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%AD%BE%E5%90%8D%E4%B8%8D%E7%9B%B4%E6%8E%A5%E5%8A%A0%E5%AF%86%EF%BC%8C%E8%80%8C%E6%98%AF%E8%A6%81%E5%85%88-hash-%E5%BD%A2%E6%88%90%E6%91%98%E8%A6%81"><span class="toc-number">4.0.2.4.</span> <span class="toc-text">为什么签名不直接加密，而是要先 hash 形成摘要?</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/09/27/HTTPs%20Certification/" title="HTTPs Certification"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="HTTPs Certification"/></a><div class="content"><a class="title" href="/2025/09/27/HTTPs%20Certification/" title="HTTPs Certification">HTTPs Certification</a><time datetime="2025-09-27T08:37:40.000Z" title="Created 2025-09-27 16:37:40">2025-09-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/21/Python%E9%AB%98%E7%BA%A7/" title="Untitled">Untitled</a><time datetime="2024-05-21T10:07:57.943Z" title="Created 2024-05-21 18:07:57">2024-05-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/21/Python/" title="Untitled">Untitled</a><time datetime="2024-05-21T10:07:57.862Z" title="Created 2024-05-21 18:07:57">2024-05-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/21/Python%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Untitled">Untitled</a><time datetime="2024-05-21T10:07:57.789Z" title="Created 2024-05-21 18:07:57">2024-05-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/21/Python%E5%9F%BA%E7%A1%80/" title="Untitled">Untitled</a><time datetime="2024-05-21T10:07:57.716Z" title="Created 2024-05-21 18:07:57">2024-05-21</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2025 By Quasar Gu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to Quasar's <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
