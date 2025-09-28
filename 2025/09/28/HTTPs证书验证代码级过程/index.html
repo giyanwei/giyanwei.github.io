@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTTPs证书验证 代码级过程 | Gu's Galaxy</title><meta name="author" content="Quasar Gu"><meta name="copyright" content="Quasar Gu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 浏览器出厂时预装了“根公钥池” Windows：注册表 HKLM\SOFTWARE\Microsoft\SystemCertificates\ROOT\Certificates\  macOS：钥匙串 “System Roots”  Firefox：自己维护 cert9.db  每条记录里最重要的两个字段：   复制   1234Subject : CN&#x3D;DigiCert Global Ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPs证书验证 代码级过程">
+<meta property="og:url" content="https://giyanwei.github.io.git/2025/09/28/HTTPs%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81%E4%BB%A3%E7%A0%81%E7%BA%A7%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Gu&#39;s Galaxy">
+<meta property="og:description" content="1. 浏览器出厂时预装了“根公钥池” Windows：注册表 HKLM\SOFTWARE\Microsoft\SystemCertificates\ROOT\Certificates\  macOS：钥匙串 “System Roots”  Firefox：自己维护 cert9.db  每条记录里最重要的两个字段：   复制   1234Subject : CN&#x3D;DigiCert Global Ro">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png">
+<meta property="article:published_time" content="2025-09-28T08:21:04.000Z">
+<meta property="article:modified_time" content="2025-09-28T13:24:19.767Z">
+<meta property="article:author" content="Quasar Gu">
+<meta property="article:tag" content="Computer Science">
+<meta property="article:tag" content="Development">
+<meta property="article:tag" content="network">
+<meta property="article:tag" content="security">
+<meta property="article:tag" content="Article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png"><link rel="shortcut icon" href="/graphics/favicon.jpg"><link rel="canonical" href="https://giyanwei.github.io.git/2025/09/28/HTTPs%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81%E4%BB%A3%E7%A0%81%E7%BA%A7%E8%BF%87%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTTPs证书验证 代码级过程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-28 21:24:19'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/graphics/avatar.jpg" onerror="onerror=null;src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Gu's Galaxy"><span class="site-name">Gu's Galaxy</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">HTTPs证书验证 代码级过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-28T08:21:04.000Z" title="Created 2025-09-28 16:21:04">2025-09-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-09-28T13:24:19.767Z" title="Updated 2025-09-28 21:24:19">2025-09-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HTTPs证书验证 代码级过程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="1-浏览器出厂时预装了“根公钥池”"><a href="#1-浏览器出厂时预装了“根公钥池”" class="headerlink" title="1. 浏览器出厂时预装了“根公钥池”"></a>1. 浏览器出厂时预装了“根公钥池”</h3><ul>
+<li><p>Windows：注册表 <code>HKLM\SOFTWARE\Microsoft\SystemCertificates\ROOT\Certificates\</code></p>
+</li>
+<li><p>macOS：钥匙串 “System Roots”</p>
+</li>
+<li><p>Firefox：自己维护 <code>cert9.db</code><br>  每条记录里最重要的两个字段：</p>
+<p>  复制</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Subject : CN=DigiCert Global Root G3  </span><br><span class="line">Subject Public Key Info :  </span><br><span class="line">   Algorithm=RSA (1.2.840.113549.1.1.1)  </span><br><span class="line">   Modulus = 0x9E...（2048-bit 整数）  </span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>浏览器就是把这段 modulus 当作“官方公钥”来用，<strong>攻击者无法篡改</strong>。</p>
+<hr>
+<h3 id="2-服务器发来的证书链（以-TLS-1-2-1-3-为例）"><a href="#2-服务器发来的证书链（以-TLS-1-2-1-3-为例）" class="headerlink" title="2. 服务器发来的证书链（以 TLS 1.2&#x2F;1.3 为例）"></a>2. 服务器发来的证书链（以 TLS 1.2&#x2F;1.3 为例）</h3><p>抓包可以看到三条证书：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Certificate[0] : 服务器叶子证书（*.example.com）  </span><br><span class="line">Certificate[1] : 中间 CA “DigiCert TLS Hybrid ECC SHA384 2020 CA1”  </span><br><span class="line">Certificate[2] : 根 CA “DigiCert Global Root G3”（可选，浏览器一般本地已有）</span><br></pre></td></tr></table></figure>
+
+<p>每条证书都是一段 DER 编码的 X.509 结构，核心字段：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tbsCertificate      // 待签名部分（包含了公钥、域名、有效期等）</span><br><span class="line">signatureAlgorithm  // 例如 1.2.840.113549.1.1.11 = sha256WithRSAEncryption  </span><br><span class="line">signatureValue      // 对 tbsCertificate 的哈希再用上级私钥加密后的字节串</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-浏览器先验证“根指纹”"><a href="#3-浏览器先验证“根指纹”" class="headerlink" title="3. 浏览器先验证“根指纹”"></a>3. 浏览器先验证“根指纹”</h3><p>把 Certificate[2] 的 <code>Subject Key Identifier</code> 与本地根库比对：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地根库 SKI : 0x75E6...  </span><br><span class="line">证书 SKI      : 0x75E6...  → 匹配，说明这条根在信任列表里。</span><br></pre></td></tr></table></figure>
+
+<p>如果 SKI 对不上，直接弹 <code>SEC_ERROR_UNKNOWN_ISSUER</code>，后续都不用做。</p>
+<hr>
+<h3 id="4-取出“根公钥”准备验签"><a href="#4-取出“根公钥”准备验签" class="headerlink" title="4. 取出“根公钥”准备验签"></a>4. 取出“根公钥”准备验签</h3><p>从本地根记录里拿到 RSA 公钥参数：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">modulus  N = 0x9E2F...（256 B）  </span><br><span class="line">exponent e = 0x010001</span><br></pre></td></tr></table></figure>
+
+<p>浏览器现在手里有了<strong>可信的公钥</strong>。</p>
+<hr>
+<h3 id="5-对中间-CA-证书做签名验证"><a href="#5-对中间-CA-证书做签名验证" class="headerlink" title="5. 对中间 CA 证书做签名验证"></a>5. 对中间 CA 证书做签名验证</h3><p>中间 CA 证书的 <code>signatureValue</code> 是 256 B 的大整数：</p>
+<p><code>sig = 0x4B1A...</code></p>
+<p>浏览器用根公钥对它做 <strong>RSA 解密</strong>（严格讲是“公钥运算”）：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSA_Verify(sig, N, e) → 得到 256 B 填充+哈希块  </span><br><span class="line">按 PKCS#1 v1.5 结构解开：</span><br><span class="line">   0x00 0x01 0xFF ... 0x00 || ASN.1 metadata || 32 B SHA-256 hash</span><br></pre></td></tr></table></figure>
+
+<p>取出 32 B 哈希：</p>
+<p><code>hash_from_sig = 0x3C7D...</code></p>
+<p>同时浏览器自己对 <code>tbsCertificate</code> 字段做独立哈希：</p>
+<p><code>hash_calc = SHA256(tbsCertificate) = 0x3C7D...</code></p>
+<p><strong>只有这两个哈希逐位相等，才认为“根 CA 确实用私钥签过这条中间证书”。</strong><br>你的伪造签名因为<strong>没有根 CA 私钥</strong>，解密后的哈希必然对不上，这一步就失败。</p>
+<hr>
+<h3 id="6-叶子证书再用中间-CA-的公钥重复一次"><a href="#6-叶子证书再用中间-CA-的公钥重复一次" class="headerlink" title="6. 叶子证书再用中间 CA 的公钥重复一次"></a>6. 叶子证书再用中间 CA 的公钥重复一次</h3><p>中间 CA 的公钥在上一张证书里的 <code>Subject Public Key Info</code> 字段：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Algorithm = id-ecPublicKey (1.2.840.10045.2.1)  </span><br><span class="line">namedCurve = secp384r1 (1.3.132.0.34)  </span><br><span class="line">pubKey = 0x04B6...（97 B 未压缩点）</span><br></pre></td></tr></table></figure>
+
+<p>浏览器用 <strong>ECDSA 签名验证</strong>（SHA-384 哈希 + secp384r1 曲线）再跑一次，流程与 RSA 类似，只是算法换成 ECC。<br>伪造者如果换成自己的 ECC 公钥，这一步验签同样会失败。</p>
+<hr>
+<h3 id="7-关键字段额外校验"><a href="#7-关键字段额外校验" class="headerlink" title="7. 关键字段额外校验"></a>7. 关键字段额外校验</h3><p>即使签名碰巧对得上（现实中不可能），浏览器还会硬编码检查：</p>
+<ul>
+<li><p><strong>有效期</strong> <code>notBefore / notAfter</code></p>
+</li>
+<li><p><strong>密钥用法</strong> <code>KeyUsage=keyCertSign, cRLSign</code>（中间 CA 必须置位）</p>
+</li>
+<li><p><strong>基本约束</strong> <code>BasicConstraints CA=true, pathLen=0</code></p>
+</li>
+<li><p><strong>名称约束</strong> <code>NameConstraints permitted=*.example.com</code></p>
+</li>
+<li><p><strong>吊销状态</strong> OCSP 或 CRL：<br>  浏览器会实时发 OCSP 请求 <code>http://ocsp.digicert.com</code>，得到 <code>certStatus=good</code> 才继续。<br>  你把域名改成自己的，OCSP 返回 <code>unknown</code> 或超时，也会被拒。</p>
+</li>
+</ul>
+<h3 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h3><p>浏览器<strong>用本地已知的根公钥去“试解密”每一层签名</strong>，只有解密出的哈希与自己独立算出的哈希<strong>逐位相等</strong>才继续；<br>伪造者因为没有受信任 CA 的<strong>私钥</strong>，解密结果必然对不上，于是<strong>在第一步 RSA&#x2F;ECDSA 验证就失败</strong>，整条信任链立刻断裂。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git">Quasar Gu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://giyanwei.github.io.git/2025/09/28/HTTPs%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81%E4%BB%A3%E7%A0%81%E7%BA%A7%E8%BF%87%E7%A8%8B/">https://giyanwei.github.io.git/2025/09/28/HTTPs%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81%E4%BB%A3%E7%A0%81%E7%BA%A7%E8%BF%87%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Computer-Science/">Computer Science</a><a class="post-meta__tags" href="/tags/Development/">Development</a><a class="post-meta__tags" href="/tags/network/">network</a><a class="post-meta__tags" href="/tags/security/">security</a><a class="post-meta__tags" href="/tags/Article/">Article</a></div><div class="post_share"><div class="social-share" data-image="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/09/28/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2%EF%BC%9F/" title="如何写好一篇计算机技术博客？"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509282029518.png" onerror="onerror=null;src='/graphics/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">如何写好一篇计算机技术博客？</div></div></a></div><div class="next-post pull-right"><a href="/2025/09/27/HTTPs%20%E6%B7%B1%E5%BA%A6%E5%85%A8%E8%A7%A3/" title="HTTPs 深度全解"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png" onerror="onerror=null;src='/graphics/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">HTTPs 深度全解</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2025/09/27/HTTPs%20%E6%B7%B1%E5%BA%A6%E5%85%A8%E8%A7%A3/" title="HTTPs 深度全解"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-27</div><div class="title">HTTPs 深度全解</div></div></a></div><div><a href="/2023/11/07/Oauth%E5%AD%A6%E4%B9%A0/" title="Oauth学习总结"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509282131309.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-07</div><div class="title">Oauth学习总结</div></div></a></div><div><a href="/2023/10/18/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%95%99%E7%A8%8B/" title="frp内网穿透教程"><img class="cover" src="https://luckyblob.oss-cn-shanghai.aliyuncs.com/postimgs/image-20230218213701529.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-18</div><div class="title">frp内网穿透教程</div></div></a></div><div><a href="/2025/09/28/%E7%B4%A2%E5%BC%95%20%E6%B7%B1%E5%BA%A6%E5%85%A8%E8%A7%A3/" title="索引 深度全解"><img class="cover" src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202508202243196.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-28</div><div class="title">索引 深度全解</div></div></a></div><div><a href="/2023/11/10/k8s%E5%88%9D%E4%BD%93%E9%AA%8C-minikube%E7%AA%81%E7%A0%B4%E9%9A%94%E6%96%AD%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6/" title="k8s初体验-minikube突破隔断访问限制(以nginx为例)"><img class="cover" src="https://luckyblob.oss-cn-shanghai.aliyuncs.com/postimgs/image-20230310101006602.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">k8s初体验-minikube突破隔断访问限制(以nginx为例)</div></div></a></div><div><a href="/2023/11/05/k8s%E5%AD%A6%E4%B9%A0%E6%95%99%E7%A8%8B-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE-part-1/" title="k8s学习教程(基础配置)--part 1"><img class="cover" src="https://luckyblob.oss-cn-shanghai.aliyuncs.com/postimgs/image-20230115202715679.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-05</div><div class="title">k8s学习教程(基础配置)--part 1</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/graphics/avatar.jpg" onerror="this.onerror=null;this.src='/graphics/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Quasar Gu</div><div class="author-info__description">Computer Science student at Shanghai University with dreams of becoming a Psychoanalyst</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/giyanwei"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/giyanwei" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/quasar21@t.shu.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my digital space! I'm thrilled you've stopped by. Here, you'll find a collection of my thoughts, stories, and insights, all curated with the hope of resonating with you.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%87%BA%E5%8E%82%E6%97%B6%E9%A2%84%E8%A3%85%E4%BA%86%E2%80%9C%E6%A0%B9%E5%85%AC%E9%92%A5%E6%B1%A0%E2%80%9D"><span class="toc-text">1. 浏览器出厂时预装了“根公钥池”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E6%9D%A5%E7%9A%84%E8%AF%81%E4%B9%A6%E9%93%BE%EF%BC%88%E4%BB%A5-TLS-1-2-1-3-%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="toc-text">2. 服务器发来的证书链（以 TLS 1.2&#x2F;1.3 为例）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%88%E9%AA%8C%E8%AF%81%E2%80%9C%E6%A0%B9%E6%8C%87%E7%BA%B9%E2%80%9D"><span class="toc-text">3. 浏览器先验证“根指纹”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8F%96%E5%87%BA%E2%80%9C%E6%A0%B9%E5%85%AC%E9%92%A5%E2%80%9D%E5%87%86%E5%A4%87%E9%AA%8C%E7%AD%BE"><span class="toc-text">4. 取出“根公钥”准备验签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AF%B9%E4%B8%AD%E9%97%B4-CA-%E8%AF%81%E4%B9%A6%E5%81%9A%E7%AD%BE%E5%90%8D%E9%AA%8C%E8%AF%81"><span class="toc-text">5. 对中间 CA 证书做签名验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%8F%B6%E5%AD%90%E8%AF%81%E4%B9%A6%E5%86%8D%E7%94%A8%E4%B8%AD%E9%97%B4-CA-%E7%9A%84%E5%85%AC%E9%92%A5%E9%87%8D%E5%A4%8D%E4%B8%80%E6%AC%A1"><span class="toc-text">6. 叶子证书再用中间 CA 的公钥重复一次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%85%B3%E9%94%AE%E5%AD%97%E6%AE%B5%E9%A2%9D%E5%A4%96%E6%A0%A1%E9%AA%8C"><span class="toc-text">7. 关键字段额外校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="toc-text">一句话总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/09/28/%E7%B4%A2%E5%BC%95%20%E6%B7%B1%E5%BA%A6%E5%85%A8%E8%A7%A3/" title="索引 深度全解"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202508202243196.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="索引 深度全解"/></a><div class="content"><a class="title" href="/2025/09/28/%E7%B4%A2%E5%BC%95%20%E6%B7%B1%E5%BA%A6%E5%85%A8%E8%A7%A3/" title="索引 深度全解">索引 深度全解</a><time datetime="2025-09-28T13:03:00.000Z" title="Created 2025-09-28 21:03:00">2025-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/28/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2%EF%BC%9F/" title="如何写好一篇计算机技术博客？"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509282029518.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="如何写好一篇计算机技术博客？"/></a><div class="content"><a class="title" href="/2025/09/28/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2%EF%BC%9F/" title="如何写好一篇计算机技术博客？">如何写好一篇计算机技术博客？</a><time datetime="2025-09-28T10:03:08.000Z" title="Created 2025-09-28 18:03:08">2025-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/28/HTTPs%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81%E4%BB%A3%E7%A0%81%E7%BA%A7%E8%BF%87%E7%A8%8B/" title="HTTPs证书验证 代码级过程"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="HTTPs证书验证 代码级过程"/></a><div class="content"><a class="title" href="/2025/09/28/HTTPs%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81%E4%BB%A3%E7%A0%81%E7%BA%A7%E8%BF%87%E7%A8%8B/" title="HTTPs证书验证 代码级过程">HTTPs证书验证 代码级过程</a><time datetime="2025-09-28T08:21:04.000Z" title="Created 2025-09-28 16:21:04">2025-09-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/27/HTTPs%20%E6%B7%B1%E5%BA%A6%E5%85%A8%E8%A7%A3/" title="HTTPs 深度全解"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="HTTPs 深度全解"/></a><div class="content"><a class="title" href="/2025/09/27/HTTPs%20%E6%B7%B1%E5%BA%A6%E5%85%A8%E8%A7%A3/" title="HTTPs 深度全解">HTTPs 深度全解</a><time datetime="2025-09-27T08:37:40.000Z" title="Created 2025-09-27 16:37:40">2025-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/27/Python%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python面向对象"><img src="https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272206116.png" onerror="this.onerror=null;this.src='/graphics/404.jpg'" alt="Python面向对象"/></a><div class="content"><a class="title" href="/2024/09/27/Python%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="Python面向对象">Python面向对象</a><time datetime="2024-09-27T08:37:40.000Z" title="Created 2024-09-27 16:37:40">2024-09-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://mypersonaldata.oss-cn-shanghai.aliyuncs.com/img/202509272145639.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2025 By Quasar Gu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to Quasar's <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
